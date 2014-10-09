@@ -31,6 +31,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -47,12 +50,30 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Applicatie.cs" />
-    <Compile Include="Server.cs" />
-    <Compile Include="Client.cs">
+    <Compile Include="forms\Colofon.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Client.Designer.cs">
+    <Compile Include="forms\Colofon.Designer.cs">
+      <DependentUpon>Colofon.cs</DependentUpon>
+    </Compile>
+    <Compile Include="forms\Options.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="forms\Options.Designer.cs">
+      <DependentUpon>Options.cs</DependentUpon>
+    </Compile>
+    <Compile Include="forms\Rules.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="forms\Rules.Designer.cs">
+      <DependentUpon>Rules.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Server.cs" />
+    <Compile Include="forms\Client.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="forms\Client.Designer.cs">
       <DependentUpon>Client.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -63,8 +84,17 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Client.resx">
+    <EmbeddedResource Include="forms\Client.resx">
       <DependentUpon>Client.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="forms\Colofon.resx">
+      <DependentUpon>Colofon.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="forms\Options.resx">
+      <DependentUpon>Options.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="forms\Rules.resx">
+      <DependentUpon>Rules.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
