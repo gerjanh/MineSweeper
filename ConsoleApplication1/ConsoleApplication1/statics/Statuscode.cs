@@ -6,8 +6,6 @@ using System.Threading.Tasks;
 
 namespace MineSweeper.statics
 {
-    class Statuscode
-    {
     public class Statuscode
     {
         public int Code { get; private set; }
@@ -103,7 +101,5 @@ namespace MineSweeper.statics
             return String.Empty;
         }
 
-    }
-}
     }
 }
