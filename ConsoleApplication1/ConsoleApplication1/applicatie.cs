@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MineSweeper
 {
-    class applicatie
+    class Applicatie
     {
         static void Main(string[] args)
         {
