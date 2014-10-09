@@ -16,5 +16,30 @@ namespace MineSweeper
         {
             InitializeComponent();
         }
+
+        private void nieuweMatchToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void optiesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void spelregelsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void colofonToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }
