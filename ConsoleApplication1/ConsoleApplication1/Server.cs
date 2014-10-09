@@ -101,10 +101,9 @@ namespace MineSweeper
 
             returnJson =
                    new JObject(
-                       new JProperty("CMD", "resp-login")//,
-                 //      new JProperty("status", new Statuscode("ok"));
-                    //   new JProperty("STATUS", Statuscode.GetCode(Statuscode.Status.InvalidUsernameOrPassword)),
-                    //   new JProperty("DESCRIPTION", Statuscode.GetDescription(Statuscode.Status.InvalidUsernameOrPassword))
+                       new JProperty("CMD", "resp-login"),
+                       new JProperty("STATUS", Statuscode.GetCode(Statuscode.Status.InvalidUsernameOrPassword)),
+                       new JProperty("DESCRIPTION", Statuscode.GetDescription(Statuscode.Status.InvalidUsernameOrPassword))
                        );
 
             //Send the result back to the client.
