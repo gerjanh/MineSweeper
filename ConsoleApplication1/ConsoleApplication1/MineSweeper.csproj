@@ -50,7 +50,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-<<<<<<< HEAD
     <Compile Include="forms\Colofon.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -70,10 +69,8 @@
       <DependentUpon>Rules.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
-=======
     <Compile Include="Applicatie.cs" />
     <Compile Include="MineSweeperField.cs" />
->>>>>>> master
     <Compile Include="Server.cs" />
     <Compile Include="forms\Client.cs">
       <SubType>Form</SubType>

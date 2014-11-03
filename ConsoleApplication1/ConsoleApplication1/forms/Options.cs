@@ -134,7 +134,7 @@ namespace MineSweeper.forms
             TextBox t = (TextBox)sender;
             if (String.IsNullOrEmpty(t.Text))
             {
-
+                kolommen = 0;
             }
             else
             {
@@ -165,7 +165,7 @@ namespace MineSweeper.forms
             TextBox t = (TextBox)sender;
             if (String.IsNullOrEmpty(t.Text))
             {
-
+                rijen = 0;
             }
             else
             {
@@ -196,7 +196,7 @@ namespace MineSweeper.forms
             TextBox t = (TextBox)sender;
             if (String.IsNullOrEmpty(t.Text))
             {
-
+                bommen = 0;
             }
             else
             {
