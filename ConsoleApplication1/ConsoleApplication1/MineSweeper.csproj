@@ -70,6 +70,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Applicatie.cs" />
+    <Compile Include="ButtonPosition.cs" />
+    <Compile Include="ClientConnect.cs" />
+    <Compile Include="StaticCodeConverter.cs" />
     <Compile Include="MineSweeperField.cs" />
     <Compile Include="Server.cs" />
     <Compile Include="forms\Client.cs">
