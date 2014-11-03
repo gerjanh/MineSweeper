@@ -10,8 +10,13 @@ using System.Windows.Forms;
 
 namespace MineSweeper.forms
 {
+
     public partial class Options : Form
     {
+        public int kolommen;
+        public int rijen;
+        public int bommen;
+
         public Options()
         {
             InitializeComponent();
@@ -19,7 +24,205 @@ namespace MineSweeper.forms
 
         private void Options_Load(object sender, EventArgs e)
         {
-            
+            //KOLOMMEN OPTIE
+            //Create a new label and text box
+            Label kolommenLabel = new Label();
+            TextBox kolommenTextBox = new TextBox();
+
+            //Initialize label's property
+            kolommenLabel.Text = "Aantal kolommen: ";
+            kolommenLabel.Location = new Point(10, 10);
+            kolommenLabel.AutoSize = true;
+
+            //Initialize textBoxes Property
+            int afstand = kolommenLabel.Width + 100;
+            kolommenTextBox.Location = new Point(afstand, kolommenLabel.Top - 3);
+            kolommenTextBox.TextChanged += new EventHandler(this.kolommenTextBox_TextChanged);
+            kolommenTextBox.MaxLength = 2;
+
+            //Add the labels and text box to the form
+            this.Controls.Add(kolommenLabel);
+            this.Controls.Add(kolommenTextBox);
+
+            //RIJEN OPTIE
+            //Create a new label and text box
+            Label rijenLabel = new Label();
+            TextBox rijenTextBox = new TextBox();
+
+            //Initialize label's property
+            rijenLabel.Text = "Aantal rijen: ";
+            rijenLabel.Location = new Point(10, 30);
+            rijenLabel.AutoSize = true;
+
+            //Initialize textBoxes Property
+            rijenTextBox.Location = new Point(afstand, rijenLabel.Top - 3);
+            rijenTextBox.TextChanged += new EventHandler(this.rijenTextBox_TextChanged);
+            rijenTextBox.MaxLength = 2;
+
+            //Add the labels and text box to the form
+            this.Controls.Add(rijenLabel);
+            this.Controls.Add(rijenTextBox);
+
+            //BOMMEN OPTIE
+            //Create a new label and text box
+            Label bommenLabel = new Label();
+            TextBox bommenTextBox = new TextBox();
+
+            //Initialize label's property
+            bommenLabel.Text = "Aantal bommen: ";
+            bommenLabel.Location = new Point(10, 50);
+            bommenLabel.AutoSize = true;
+
+            //Initialize textBoxes Property
+            bommenTextBox.Location = new Point(afstand, bommenLabel.Top - 3);
+            bommenTextBox.TextChanged += new EventHandler(this.bommenTextBox_TextChanged);
+            bommenTextBox.MaxLength = 4;
+
+            //Add the labels and text box to the form
+            this.Controls.Add(bommenLabel);
+            this.Controls.Add(bommenTextBox);
+
+            Button startButton = new Button();
+            startButton.Location = new Point(afstand,70);
+            startButton.Visible = true;
+            startButton.Text = "Start";
+            startButton.Size = new Size(100, 20);
+            this.Controls.Add(startButton);
+            startButton.Click += new EventHandler(this.startButtonClick);
+        }
+
+        void startButtonClick(object sender, EventArgs e)
+        {
+            Boolean kolom = false;
+            Boolean rij = false;
+            Boolean bom = false;
+
+            if (kolommen <= 80 && kolommen > 0)
+            {
+                kolom = true;
+            }
+            if (rijen <= 80 && rijen > 0)
+            {
+                rij = true;
+            }
+            if (bommen < 6400 && bommen > 0 && bommen < kolommen*rijen)
+            {
+                bom = true;
+            }
+
+            if (kolom == true && rij == true)
+            {
+                if(bommen >= kolommen*rijen)
+                {
+                    MessageBox.Show("Er bevinden zich meer bommen dan velden in het spel!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else
+                {
+                // verzend kolommen + rijen + bommen
+                 MessageBox.Show("verzend kolommen + rijen + bommen", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                 this.Close();
+                }
+            }
+            else
+            {
+                MessageBox.Show("Let erop dat de waarden van de kolommen en rijen zich tussen de 1 en 80 moeten bevinden en van de bommen tussen 1 en 6399.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void kolommenTextBox_TextChanged(object sender, EventArgs e)
+        {
+            TextBox t = (TextBox)sender;
+            if (String.IsNullOrEmpty(t.Text))
+            {
+
+            }
+            else
+            {
+                try
+                {
+                    kolommen = Convert.ToInt32(t.Text);
+                    kolommen = int.Parse(t.Text);
+
+                    if (kolommen <= 80 && kolommen > 0)
+                    {
+                    }
+                    else
+                    {
+                        MessageBox.Show("De waarden van kolommen ligt tussen 1 en 80", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+                catch (FormatException)
+                {
+
+                    MessageBox.Show("Alleen getallen!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                
+            }
+        }
+
+        private void rijenTextBox_TextChanged(object sender, EventArgs e)
+        {
+            TextBox t = (TextBox)sender;
+            if (String.IsNullOrEmpty(t.Text))
+            {
+
+            }
+            else
+            {
+                try
+                {
+                    rijen = Convert.ToInt32(t.Text);
+                    rijen = int.Parse(t.Text);
+
+                    if (rijen <= 80 && rijen > 0)
+                    {
+                    }
+                    else
+                    {
+                    MessageBox.Show("De waarden van rijen ligt tussen 1 en 80", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+                catch (FormatException)
+                {
+
+                    MessageBox.Show("Alleen getallen!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                
+            }
+        }
+
+        private void bommenTextBox_TextChanged(object sender, EventArgs e)
+        {
+            TextBox t = (TextBox)sender;
+            if (String.IsNullOrEmpty(t.Text))
+            {
+
+            }
+            else
+            {
+                try
+                {
+                    bommen = Convert.ToInt32(t.Text);
+                    bommen = int.Parse(t.Text);
+                    int aantalVelden = kolommen * rijen;
+                    if (bommen < 6400 && bommen > 0)
+                    {
+                        if (bommen >= aantalVelden)
+                        {
+                            MessageBox.Show("Er zijn meer bommen in het veld dan dat er velden zijn verlaag het aantal bommen!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("De waarden van het aantal bommen ligt tussen 1 en 6399", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+                catch (FormatException)
+                {
+
+                    MessageBox.Show("Alleen getallen!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
         }
     }
 }
