@@ -143,10 +143,7 @@ namespace MineSweeper
                             break;
                 }
                     break;
-        }
-
-            
-        
+            }
         }
 
         private static void sendToAll(string response)
@@ -169,6 +166,5 @@ namespace MineSweeper
             Socket socket = (Socket)AR.AsyncState;
             socket.EndSend(AR);
         }
-
     }
 }
