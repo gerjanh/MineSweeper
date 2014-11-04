@@ -10,21 +10,23 @@ namespace MineSweeper
 
     class Server
     {
+        private static MineSweeperField msf = new MineSweeperField();
         private static int _cliendID=0;
         private static int _turn=0;
         private static int _numOfPlayers;
         private static List<int> _activePlayers=new List<int>();
-        private static List<int> _Players=new List<int>();
+        private static List<int> _Players = new List<int>();
+        private static List<Socket> _clientSockets = new List<Socket>();
 
         private static Socket _serverSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-        private static List<Socket> _clientSockets = new List<Socket>();
         private static byte[] _buffer = new byte[1024];
-        private static MineSweeperField msf = new MineSweeperField();
         
-        public void main(){
-            setupServer();
+        
+
+        public Server()
+        {
+           setupServer();
         }
-        
         private static void setupServer()
         {
             _serverSocket.Bind(new IPEndPoint(IPAddress.Any, 100));
@@ -32,7 +34,7 @@ namespace MineSweeper
             _serverSocket.BeginAccept(new AsyncCallback(acceptCallback), null);
 
         }
-
+        
         private static void acceptCallback(IAsyncResult AR)
         {
             Socket socket = _serverSocket.EndAccept(AR);
