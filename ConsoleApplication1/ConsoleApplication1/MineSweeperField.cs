@@ -8,7 +8,7 @@ namespace MineSweeper
 {
         class MineSweeperField
     {
-            private int[,] field;
+            private static int[,] field;
 
             public MineSweeperField()
             {
@@ -19,7 +19,7 @@ namespace MineSweeper
             {
                 newField(8, 8, 10);
             }
-            public void newField(int x, int y ,int numOfBombs)
+            public void newField(int x, int y, int numOfBombs)
             {
                 Random rnd = new Random();
                 int bombs = 0;
@@ -114,12 +114,7 @@ namespace MineSweeper
 
             }
 
-           /** public int getSpot(int x , int y)
-            {
-                return field[x, y];
-            }// */
-
-            public List<int> getSpot(int x ,int y)
+            public  List<int> getSpot(int x, int y)
             {
                 List<int> area = new List<int>();
                 if (!(field[x, y] == -1)){
@@ -136,7 +131,7 @@ namespace MineSweeper
                 return area;
             }
 
-            private List<int> serounding(int x, int y, List<int> number)
+            private  List<int> serounding(int x, int y, List<int> number)
             {
                // List<int> number = new List<int>();
 

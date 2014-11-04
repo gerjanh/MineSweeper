@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace MineSweeper
-{
+{/**
     static class Program
     {
         [STAThread]
@@ -17,5 +17,5 @@ namespace MineSweeper
             Application.Run(new Client());
             
         }
-    }
+    }*/
 }
