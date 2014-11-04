@@ -69,7 +69,6 @@
       <DependentUpon>Rules.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
-    <Compile Include="Applicatie.cs" />
     <Compile Include="MineSweeperField.cs" />
     <Compile Include="Server.cs" />
     <Compile Include="forms\Client.cs">
