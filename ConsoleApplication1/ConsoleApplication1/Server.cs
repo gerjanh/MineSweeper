@@ -27,6 +27,11 @@ namespace MineSweeper
         {
            setupServer();
         }
+
+        public void keepopen()
+        {
+            Console.ReadLine();
+        }
         private static void setupServer()
         {
             _serverSocket.Bind(new IPEndPoint(IPAddress.Any, 100));

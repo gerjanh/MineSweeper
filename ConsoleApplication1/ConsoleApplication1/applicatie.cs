@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 namespace MineSweeper
 {
     class Applicatie
-    {
+    {/**
         static void Main(string[] args)
         {
             Client client = new Client();
             Server server = new Server();
-        }
+        }*/
     }
 }
