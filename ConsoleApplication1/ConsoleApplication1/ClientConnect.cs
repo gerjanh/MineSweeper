@@ -18,11 +18,18 @@ namespace MineSweeper
         public ClientConnect()
         {
             loopConnect();
+            Console.Title = "troll";
 
 
         Thread newThread = new Thread(new ThreadStart(loopCheck));
         newThread.Start(); 
     }
+
+        public void keepalive()
+        {
+
+
+        }
 
         public void loopCheck() 
      {
@@ -46,21 +53,32 @@ namespace MineSweeper
         {
             int attempts = 0;
 
-            while (!_clientSocket.Connected&& attempts<100)
-            try
+            while (!_clientSocket.Connected && attempts < 8080)
             {
                 attempts++;
+                Thread.Sleep(500);
+                Console.WriteLine("poging " + attempts);
+                try
+                {
+                    _clientSocket.Connect(IPAddress.Loopback, 8080);
+                }
+                catch (SocketException e)
+                {
+                    Console.WriteLine(e);
+                    attempts++;
+                }
+                finally
+                {
+                    this._clientID = int.Parse(send("get connected"));
+                    //newfield(8, 8, 10);
+                    Console.WriteLine(_clientID);
 
-                _clientSocket.Connect(IPAddress.Loopback, 100);
+                }
             }
-            catch (SocketException){
-                
-            }
-            finally
-            {
-                this._clientID = int.Parse(send("get connected"));
-                newfield(8,8,10);
-            }
+            send(_clientID + ";new board;101010");
+            
+            getPosition(0,1);
+            
         }
 
         private string send(string text)
@@ -80,6 +98,7 @@ namespace MineSweeper
             byte[] data = new byte[rec];
             Array.Copy(receivedBuf, data, rec);
             string receive = Encoding.ASCII.GetString(data);
+            Console.WriteLine(receive);
             return receive;
         }
 

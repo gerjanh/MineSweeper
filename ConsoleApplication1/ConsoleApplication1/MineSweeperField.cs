@@ -21,30 +21,34 @@ namespace MineSweeper
           }
          public void newField(int x, int y, int numOfBombs)
           {
+              field = new int[x, y];
 
              
               Random rnd = new Random();
               int bombs = 0;
-             
-              while (bombs < numOfBombs)
-              {
-                  bombs = 0;
-                  field = new int[x, y];
 
-                  for (int i = 0; i < numOfBombs; i++)
+                  while (bombs < numOfBombs)
                   {
-                      field[rnd.Next(x), rnd.Next(y)] = -1;
-                  }
 
-                  for (int idx = 0; idx < x; idx++)
-                  {
-                      for (int idy = 0; idy < x; idy++)
+
+                      for (int i = 0; i < numOfBombs; i++)
                       {
-                          if (field[idx, idy] == -1)
-                              bombs++;
+                          int randomx = rnd.Next(x);
+                              int randomy = rnd.Next(y);
+                          field[randomx, randomy] = -1;
+                      }
+
+                      for (int idx = 0; idx < x; idx++)
+                      {
+                          for (int idy = 0; idy < x; idy++)
+                          {
+                              if (field[idx, idy] == -1)
+                                  bombs++;
+
+
+                          }
                       }
                   }
-              }
              
               for (int idx = 0 ; idx < x ; idx++){
                   for (int idy = 0 ; idy < x ; idy++){
@@ -113,12 +117,13 @@ namespace MineSweeper
                       }
                   }
               }
-               
+
 
           }
 
           public  List<int> getSpot(int x, int y)
           {
+              Console.WriteLine("position " + x +" "+y);
               List<int> area = new List<int>();
               if (!(field[x, y] == -1)){
                   area.Add(field[x, y] * 100 + x * 100 + y);

@@ -26,6 +26,7 @@ namespace MineSweeper
         public Server()
         {
            setupServer();
+          // Console.Title = "heks";
         }
 
         public void keepopen()
@@ -34,8 +35,8 @@ namespace MineSweeper
         }
         private static void setupServer()
         {
-            _serverSocket.Bind(new IPEndPoint(IPAddress.Any, 100));
-            _serverSocket.Listen(1);
+            _serverSocket.Bind(new IPEndPoint(IPAddress.Any, 8080));
+            _serverSocket.Listen(5);
             _serverSocket.BeginAccept(new AsyncCallback(acceptCallback), null);
 
         }
@@ -47,7 +48,7 @@ namespace MineSweeper
             _cliendID++;
             _numOfPlayers++;
             // client toegevoegd
-            socket.BeginReceive(_buffer, 0, _buffer.Length, SocketFlags.None, new AsyncCallback(SendCallback), socket);
+            socket.BeginReceive(_buffer, 0, _buffer.Length, SocketFlags.None, new AsyncCallback(ReceiveCallback), socket);
             _serverSocket.BeginAccept(new AsyncCallback(acceptCallback), null);
         }
 
@@ -61,96 +62,107 @@ namespace MineSweeper
             string text = Encoding.ASCII.GetString(dataBuf);
             String response = string.Empty;
 
+            Console.WriteLine(text);
             string[] temp = text.Split(';') ;
 
-            switch(temp[0].ToLower()){
+            for (int i = 0; i < temp.Length; i++)
+            {
+                Console.WriteLine(temp[i]);
+            }
 
-                case "get connected":
-                    _cliendID++;
-                    response = _cliendID+"";
-                    _Players.Add(_cliendID);
-                    send(response, socket);
-                    break;
+                switch (temp[0].ToLower())
+                {
 
-                default:
-                    int x;
-                    int y;
-                    int numOfBombs;
-                    int point;
-                    int combination;
+                    case "get connected":
+                        response = _cliendID + "";
+                        _Players.Add(_cliendID);
+                        response = _cliendID + "";
+                        send(response, socket);
+                        Console.WriteLine("connected");
+                        _cliendID++;
+                        break;
 
-                    switch(temp[1].ToLower()){
-                        case "get":
-                            switch (temp[2].ToLower())
-                            {
-                                case "number of players":
-                                    response = _numOfPlayers+";";
-                                    send(response, socket);
-                                    break;
-                                case "turn":
-                                    response = _turn+";";
-                                    send(response, socket);
-                                    break;
-                                case "position;":
-                                    combination = int.Parse(temp[3]);
-                                    StaticCodeConverter.decode(combination, out x, out y);
-                                    List<int> spots = msf.getSpot(x,y);
-                                    response = "position" + ";";
-                                    foreach (int i in spots)
-                                    {
-                                        response = i+";";
-                                    }
-                                    
+                    default:
+                        int x;
+                        int y;
+                        int numOfBombs;
+                        int point;
+                        int combination;
 
-                                    if (spots.Count == 1)
-                                    {
+                        switch (temp[1].ToLower())
+                        {
+                            case "get":
+                                switch (temp[2].ToLower())
+                                {
+                                    case "number of players":
+                                        response = _numOfPlayers + ";";
+                                        send(response, socket);
+                                        break;
+                                    case "turn":
+                                        response = _turn + ";";
+                                        send(response, socket);
+                                        break;
+                                    case "position;":
+                                        combination = int.Parse(temp[3]);
+                                        StaticCodeConverter.decode(combination, out x, out y);
+                                        Console.WriteLine("position " + x + " " + y);
+                                        List<int> spots = msf.getSpot(x, y);
+                                        response = "position" + ";";
                                         foreach (int i in spots)
                                         {
-                                            if (i / 10000 < 0)
-                                            {
-                                                send(response, socket);
-                                            }
-                                            else
-                                            {
-                                                sendToAll(response);
-                                            }
+                                            response = i + ";";
                                         }
 
-                                    }
-                                    else
-                                    {
-                                        sendToAll(response);
-                                    }
+
+                                        if (spots.Count == 1)
+                                        {
+                                            foreach (int i in spots)
+                                            {
+                                                if (i / 10000 < 0)
+                                                {
+                                                    send(response, socket);
+                                                }
+                                                else
+                                                {
+                                                    sendToAll(response);
+                                                }
+                                            }
+
+                                        }
+                                        else
+                                        {
+                                            sendToAll(response);
+                                        }
 
 
-                                    break;
-                            default :
+                                        break;
+                                    default:
+
+                                        break;
+                                }
+                                break;
+                            case "new board":
+
+                                combination = int.Parse(temp[2]);
+                                StaticCodeConverter.decode(combination, out x, out y, out numOfBombs);
+                                msf.newField(x, y, numOfBombs);
+                                response = "new field made of;" + x + ";" + y + ";" + numOfBombs + ";";
+                                send(response, socket);
+                                _activePlayers = _Players;
 
                                 break;
-                            }
-                            break;
-                        case "new board":
-                            
-                            combination = int.Parse(temp[2]);
-                            StaticCodeConverter.decode(combination, out x, out y, out numOfBombs);
-                            msf.newField(x, y, numOfBombs);
-                            response = "new field made of;"+x+";"+y+";"+numOfBombs+";";
-                            send(response, socket);
-                            _activePlayers = _Players;
 
-                            break;
+                            case "disconect":
+                                _numOfPlayers--;
+                                _activePlayers.Remove(int.Parse(temp[0]));
+                                _Players.Remove(int.Parse(temp[0]));
+                                break;
+                            default:
 
-                        case "disconect":
-                            _numOfPlayers--;
-                            _activePlayers.Remove(int.Parse(temp[0]));
-                            _Players.Remove(int.Parse(temp[0]));
-                            break;
-                        default :
-
-                            break;
+                                break;
+                        }
+                        break;
                 }
-                    break;
-            }
         }
 
         private static void sendToAll(string response)
@@ -164,7 +176,7 @@ namespace MineSweeper
         {
             byte[] data = Encoding.ASCII.GetBytes(response);
             socket.BeginSend(data, 0, data.Length, SocketFlags.None, new AsyncCallback(SendCallback), socket);
-            socket.BeginReceive(_buffer, 0, _buffer.Length, SocketFlags.None, new AsyncCallback(SendCallback), socket);
+            socket.BeginReceive(_buffer, 0, _buffer.Length, SocketFlags.None, new AsyncCallback(ReceiveCallback), socket);
             _serverSocket.BeginAccept(new AsyncCallback(acceptCallback), null);
         }
 
