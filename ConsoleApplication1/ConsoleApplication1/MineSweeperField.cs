@@ -9,6 +9,7 @@ namespace MineSweeper
         class MineSweeperField
     {
             private static int[,] field;
+            private int hight, width;
 
             public MineSweeperField()
             {
@@ -22,15 +23,14 @@ namespace MineSweeper
          public void newField(int x, int y, int numOfBombs)
           {
               field = new int[x, y];
-
+              this.width = x;
+              this.hight = y;
              
               Random rnd = new Random();
               int bombs = 0;
 
                   while (bombs < numOfBombs)
                   {
-
-
                       for (int i = 0; i < numOfBombs; i++)
                       {
                           int randomx = rnd.Next(x);
@@ -120,70 +120,56 @@ namespace MineSweeper
 
 
           }
+         public int[,] getfield()
+         {
+             return field;
+         }
 
-          public  List<int> getSpot(int x, int y)
+         public List<ButtonPosition> getSpot(int x, int y)
           {
-              Console.WriteLine("position " + x +" "+y);
-              List<int> area = new List<int>();
-              if (!(field[x, y] == -1)){
-                  area.Add(field[x, y] * 100 + x * 100 + y);
-                  if (field[x, y] == 0)
-                  {
+              List<ButtonPosition> area = new List<ButtonPosition>();
                       serounding(x,y,area);
-                  }
-              }
-              else
-              {
-                  return null;
-              }
               return area;
           }
 
-          private  List<int> serounding(int x, int y, List<int> number)
+         private List<ButtonPosition> serounding(int x, int y, List<ButtonPosition> number)
           {
-             // List<int> number = new List<int>();
+              bool temp = false ;
+             foreach (ButtonPosition b in number){
+                 if (b.x == x && b.y == y)
+                 {
+                     temp = true;
+                 }
+             }
+              if (!(temp)){
 
-              if (!(number.Contains(field[x,y]*100+x*100+y))){
+                  number.Add(new ButtonPosition(x, y, field[x, y]));
 
-
+                  if (field[x, y] == 0)
+                  {
                   if (!(x - 1 < 0))
                   {
-                      if (field[x - 1, y] == 0)
-                      {
                           serounding(x - 1, y, number);
-                      }
-                      number.Add(field[x - 1, y] * 100 + (x - 1) * 100 + y);
                   }
 
-                  if (!(x + 1 < 0))
+                  if (!(x + 1 >= width))
                   {
-                      if (field[x + 1, y] == 0)
-                      {
                           serounding(x + 1, y, number);
-                      }
-                      number.Add(field[x + 1, y] * 100 + (x + 1) * 100 + y);
                   }
 
                   if (!(y - 1 < 0))
                   {
-                      if (field[x, y - 1] == 0)
-                      {
                           serounding(x, y - 1, number);
-                      }
-                      number.Add(field[x, y - 1] * 100 + x * 100 + (y - 1));
                   }
 
-                  if (!(y + 1 < 0))
+                  if (!(y + 1 >= hight))
                   {
-                      if (field[x, y + 1] == 0)
-                      {
                           serounding(x, y + 1, number);
-                      }
-                      number.Add(field[x, y + 1] * 100 + x * 100 + (y + 1));
+                  }
                   }
                 
               }
-              List<int> numbers = number.Distinct().ToList();
+              List<ButtonPosition> numbers = number.Distinct().ToList();
 
               return numbers;
           }

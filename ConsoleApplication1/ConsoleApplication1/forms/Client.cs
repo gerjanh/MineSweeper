@@ -13,6 +13,8 @@ namespace MineSweeper
 {
     public partial class Client : Form
     {
+        private ClientConnect cc = new ClientConnect();
+
         private List<Button> buttons;
         public int fieldSizeX;
         public int fieldSizeY;
@@ -21,9 +23,20 @@ namespace MineSweeper
             InitializeComponent();
         }
 
+        public void keepopen()
+        {
+            Console.ReadLine();
+        }
+
+        public void newboard(int x , int y , int bombs)
+        {
+            cc.newfield(x,y,bombs);
+        }
+
         private void nieuweMatchToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            cc.newfield(5,5,5);
+            generateField(5,5);
         }
 
         private void optiesToolStripMenuItem_Click(object sender, EventArgs e)
@@ -75,7 +88,13 @@ namespace MineSweeper
         void buttonClick(object sender, EventArgs e)
         {
             Button button = (Button)sender;
-            MessageBox.Show(""+button.Location.X/fieldSizeX +" "+ button.Location.Y/fieldSizeY);
+            MessageBox.Show(""+button.Location.X/fieldSizeX +" "+ button.Location.Y/fieldSizeY );
+            cc.getPosition(button.Location.X / fieldSizeX, button.Location.Y / fieldSizeY);
+        }
+
+        private void panel1_Paint_1(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }

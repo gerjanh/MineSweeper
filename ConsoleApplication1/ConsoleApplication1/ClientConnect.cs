@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -18,12 +19,19 @@ namespace MineSweeper
         public ClientConnect()
         {
             loopConnect();
-            Console.Title = "troll";
+            Thread newThread = new Thread(new ThreadStart(loopCheck));
+            newThread.Start(); 
+        }
 
+        ClientConnect cc;
+        /*public void alive(ClientConnect ClientConnect)
+        {
+            this.cc = ClientConnect;
+            while (true)
+            {
 
-        Thread newThread = new Thread(new ThreadStart(loopCheck));
-        newThread.Start(); 
-    }
+            }
+        }*/
 
         public void keepalive()
         {
@@ -35,25 +43,20 @@ namespace MineSweeper
      {
         Thread.Sleep(500);
         this.turn = myTurn();
-        string[] responses = receive().Split(';');
+       /* string[] responses = receive().Split(';');
         if (responses[0] == "position")
         {
 
-        }
+        }*/
 
 
      }
-
-        public int getTurn()
-        {
-            return turn;
-        }
 
         private  void loopConnect()
         {
             int attempts = 0;
 
-            while (!_clientSocket.Connected && attempts < 8080)
+            while (!_clientSocket.Connected && attempts < 100)
             {
                 attempts++;
                 Thread.Sleep(500);
@@ -69,19 +72,17 @@ namespace MineSweeper
                 }
                 finally
                 {
-                    this._clientID = int.Parse(send("get connected"));
-                    //newfield(8, 8, 10);
-                    Console.WriteLine(_clientID);
+                    Command command = new Command();
+                    command.theCommand = commands.get_connected;
+                    string json = JsonConvert.SerializeObject(command);
+                    this._clientID = (send(json)).clientId;
+                    Console.WriteLine("my client id = "+_clientID);
 
                 }
             }
-            send(_clientID + ";new board;101010");
-            
-            getPosition(0,1);
-            
         }
 
-        private string send(string text)
+        private Command send(string text)
         {
             String request = text;
             byte[] buffer = Encoding.ASCII.GetBytes(request);
@@ -90,7 +91,7 @@ namespace MineSweeper
             return receive();
         }
 
-        private string receive()
+        private Command receive()
         {
             
             byte[] receivedBuf = new byte[1024];
@@ -98,43 +99,53 @@ namespace MineSweeper
             byte[] data = new byte[rec];
             Array.Copy(receivedBuf, data, rec);
             string receive = Encoding.ASCII.GetString(data);
-            Console.WriteLine(receive);
-            return receive;
+            Command temp = JsonConvert.DeserializeObject<Command>(receive);
+            Console.WriteLine(temp.theCommand.ToString() + " " + temp.clientId + " " + temp.parameters.Count);
+
+            return temp;
         }
 
         public void newfield(int x , int y , int numberOfBombs)
         {
-            int combination = 0;
-            StaticCodeConverter.encode(x, y, numberOfBombs, out combination);
-            send(_clientID + ";new board;" + combination);
+            Command newBoardCommand = new Command();
+            newBoardCommand.theCommand = commands.new_board;
+            newBoardCommand.clientId = _clientID;
+            newBoardCommand.parameters.Add("bombs", numberOfBombs);
+            newBoardCommand.parameters.Add("x", x);
+            newBoardCommand.parameters.Add("y", y);
+            string json = JsonConvert.SerializeObject(newBoardCommand);
+            send(json);
+
         }
         public List<ButtonPosition> getPosition(int x , int y)
         {
-            int combination = 0;
-            StaticCodeConverter.encode(x, y, out combination);
-            
-            string response = send(_clientID + ";get:position;" + combination);
-            string[] responses = response.Split(';');
+            Command command = new Command();
+            command.theCommand = commands.get_position;
+            command.clientId = _clientID;
+            //command.buttons.Add(new ButtonPosition(x, y));
+
+            string json = JsonConvert.SerializeObject(command);
+            Command response = send(json);
             List<ButtonPosition> coordinates = new List<ButtonPosition>();
 
-            for (int i = 1; i < responses.Length; i++)
-            {
-                int rx;
-                int ry;
-                int rpoint;
-                StaticCodeConverter.decode(i,out rx,out ry,out rpoint);
-                coordinates.Add(new ButtonPosition(rx,ry,rpoint));
-            }
             return coordinates;
         }
 
         public int myTurn()
         {
-            string response = send(_clientID + ";get:turn");
-            string[] responses = response.Split(';');
-            int turn=0;
-            turn = int.Parse(responses[0]);
-            return turn ;
+            Command command = new Command();
+            command.theCommand = commands.get_turn;
+            command.clientId = _clientID;
+            string json = JsonConvert.SerializeObject(command);
+            Command response = send(json);
+
+            return response.parameters["player"];
+        }
+
+
+        public int getTurn()
+        {
+            return turn;
         }
 
         public Boolean WhosTurn()
@@ -148,18 +159,19 @@ namespace MineSweeper
 
         public int getNumberOfPlayers()
         {
-            int players = 0;
+           /* int players = 0;
 
             string response = send(_clientID + ";get:turn");
             string[] responses = response.Split(';');
             players = int.Parse(responses[0]);
 
-            return players;
+            return players;*/
+            return 0;
         }
 
         public void disconect()
         {
-            string response = send(_clientID + ";disconect");
+           // string response = send(_clientID + ";disconect");
         }
 
     }

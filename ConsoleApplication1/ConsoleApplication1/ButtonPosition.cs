@@ -8,10 +8,9 @@ namespace MineSweeper
 {
     class ButtonPosition
     {
-        private int x;
-        private int y;
-        private int point;
-
+        public int x { get; set; }
+        public int y { get; set; }
+        public int point { get; set; }
         public ButtonPosition(int x , int y)
         {
             this.x = x;
@@ -26,8 +25,5 @@ namespace MineSweeper
             this.point = point;
         }
 
-        public int getY() { return y; }
-        public int getX() { return x; }
-        public int getPint() { return point; }
     }
 }

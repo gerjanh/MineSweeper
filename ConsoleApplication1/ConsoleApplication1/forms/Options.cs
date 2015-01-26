@@ -119,6 +119,7 @@ namespace MineSweeper.forms
                 else
                 {
                 // verzend kolommen + rijen + bommen
+
                  MessageBox.Show("verzend kolommen + rijen + bommen", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                  this.Close();
                 }

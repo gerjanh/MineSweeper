@@ -50,6 +50,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Command.cs" />
+    <Compile Include="enum.cs" />
     <Compile Include="forms\Colofon.cs">
       <SubType>Form</SubType>
     </Compile>

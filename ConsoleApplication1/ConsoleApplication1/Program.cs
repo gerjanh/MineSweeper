@@ -10,14 +10,22 @@ namespace MineSweeper
 {
     static class Program
     {
-
         [STAThread]
         static void Main()
         {
-            Server server = new Server();
-            Thread newThread = new Thread(new ThreadStart(server.keepopen));
-            newThread.Start(); 
+            try
+            {
+                Server server = new Server();
+                Thread newThread = new Thread(new ThreadStart(server.keepopen));
+                newThread.Start(); 
+            }
+            catch (Exception)
+            {
+                
+                throw;
+            }
 
+            
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
