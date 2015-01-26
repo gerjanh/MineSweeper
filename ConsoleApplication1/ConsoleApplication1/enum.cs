@@ -17,9 +17,19 @@ namespace MineSweeper
         get_turn,
         turn,
         get_position,
+        position,
         get_number_of_players,
         number_of_players,
         unknown_command
 
+    }
+    public enum parameter
+    {
+        id,
+        player,
+        x,
+        y,
+        bombs,
+        point
     }
 }

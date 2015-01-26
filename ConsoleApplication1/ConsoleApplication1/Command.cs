@@ -10,15 +10,15 @@ namespace MineSweeper
     {
         public Command()
         {
-            parameters = new Dictionary<string, int>();
-           // buttons = new List<ButtonPosition>();
+            parameters = new Dictionary<parameter, int>();
+            buttons = new List<ButtonPosition>();
         }
 
         public int clientId { get; set; }
         public commands theCommand { get; set; }
-        public Dictionary<string, int> parameters { get; set; }
+        public Dictionary<parameter, int> parameters { get; set; }
 
-        // public List<ButtonPosition> buttons { get; set; }
+        public List<ButtonPosition> buttons { get; set; }
 
     }
 }

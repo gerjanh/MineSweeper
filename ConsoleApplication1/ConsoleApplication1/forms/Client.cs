@@ -18,6 +18,7 @@ namespace MineSweeper
         private List<Button> buttons;
         public int fieldSizeX;
         public int fieldSizeY;
+        public static int x=10,y=10,bombs=10;
         public Client()
         {
             InitializeComponent();
@@ -35,8 +36,8 @@ namespace MineSweeper
 
         private void nieuweMatchToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            cc.newfield(5,5,5);
-            generateField(5,5);
+            cc.newfield(x,y,bombs);
+            generateField(x,y);
         }
 
         private void optiesToolStripMenuItem_Click(object sender, EventArgs e)

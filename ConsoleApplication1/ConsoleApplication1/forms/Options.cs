@@ -83,7 +83,7 @@ namespace MineSweeper.forms
             this.Controls.Add(bommenTextBox);
 
             Button startButton = new Button();
-            startButton.Location = new Point(afstand,70);
+            startButton.Location = new Point(afstand, 70);
             startButton.Visible = true;
             startButton.Text = "Start";
             startButton.Size = new Size(100, 20);
@@ -105,23 +105,26 @@ namespace MineSweeper.forms
             {
                 rij = true;
             }
-            if (bommen < 6400 && bommen > 0 && bommen < kolommen*rijen)
+            if (bommen < 6400 && bommen > 0 && bommen < kolommen * rijen)
             {
                 bom = true;
             }
 
             if (kolom == true && rij == true)
             {
-                if(bommen >= kolommen*rijen)
+                if (bommen >= kolommen * rijen)
                 {
                     MessageBox.Show("Er bevinden zich meer bommen dan velden in het spel!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 else
                 {
-                // verzend kolommen + rijen + bommen
+                    // verzend kolommen + rijen + bommen
 
-                 MessageBox.Show("verzend kolommen + rijen + bommen", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                 this.Close();
+                    MessageBox.Show("verzend kolommen + rijen + bommen", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    Client.bombs = bommen;
+                    Client.x = kolommen;
+                    Client.y = rijen;
+                    this.Close();
                 }
             }
             else
@@ -157,7 +160,7 @@ namespace MineSweeper.forms
 
                     MessageBox.Show("Alleen getallen!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-                
+
             }
         }
 
@@ -180,7 +183,7 @@ namespace MineSweeper.forms
                     }
                     else
                     {
-                    MessageBox.Show("De waarden van rijen ligt tussen 1 en 80", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("De waarden van rijen ligt tussen 1 en 80", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
                 catch (FormatException)
@@ -188,7 +191,7 @@ namespace MineSweeper.forms
 
                     MessageBox.Show("Alleen getallen!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-                
+
             }
         }
 

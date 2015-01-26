@@ -6,11 +6,14 @@ using System.Threading.Tasks;
 
 namespace MineSweeper
 {
-    class ButtonPosition
+    public class ButtonPosition
     {
         public int x { get; set; }
         public int y { get; set; }
         public int point { get; set; }
+        public ButtonPosition()
+        {
+        }
         public ButtonPosition(int x , int y)
         {
             this.x = x;

@@ -20,7 +20,7 @@ namespace MineSweeper
         {
             loopConnect();
             Thread newThread = new Thread(new ThreadStart(loopCheck));
-            newThread.Start(); 
+            newThread.Start();
         }
 
         ClientConnect cc;
@@ -39,20 +39,20 @@ namespace MineSweeper
 
         }
 
-        public void loopCheck() 
-     {
-        Thread.Sleep(500);
-        this.turn = myTurn();
-       /* string[] responses = receive().Split(';');
-        if (responses[0] == "position")
+        public void loopCheck()
         {
+            Thread.Sleep(500);
+            this.turn = whosTurn();
+            /* string[] responses = receive().Split(';');
+             if (responses[0] == "position")
+             {
 
-        }*/
+             }*/
 
 
-     }
+        }
 
-        private  void loopConnect()
+        private void loopConnect()
         {
             int attempts = 0;
 
@@ -76,7 +76,7 @@ namespace MineSweeper
                     command.theCommand = commands.get_connected;
                     string json = JsonConvert.SerializeObject(command);
                     this._clientID = (send(json)).clientId;
-                    Console.WriteLine("my client id = "+_clientID);
+                    Console.WriteLine("my client id = " + _clientID);
 
                 }
             }
@@ -93,8 +93,8 @@ namespace MineSweeper
 
         private Command receive()
         {
-            
-            byte[] receivedBuf = new byte[1024];
+
+            byte[] receivedBuf = new byte[16384];
             int rec = _clientSocket.Receive(receivedBuf);
             byte[] data = new byte[rec];
             Array.Copy(receivedBuf, data, rec);
@@ -105,33 +105,34 @@ namespace MineSweeper
             return temp;
         }
 
-        public void newfield(int x , int y , int numberOfBombs)
+        public void newfield(int x, int y, int numberOfBombs)
         {
             Command newBoardCommand = new Command();
             newBoardCommand.theCommand = commands.new_board;
             newBoardCommand.clientId = _clientID;
-            newBoardCommand.parameters.Add("bombs", numberOfBombs);
-            newBoardCommand.parameters.Add("x", x);
-            newBoardCommand.parameters.Add("y", y);
+            newBoardCommand.parameters.Add(parameter.bombs, numberOfBombs);
+            newBoardCommand.parameters.Add(parameter.x, x);
+            newBoardCommand.parameters.Add(parameter.y, y);
             string json = JsonConvert.SerializeObject(newBoardCommand);
             send(json);
 
         }
-        public List<ButtonPosition> getPosition(int x , int y)
+        public List<ButtonPosition> getPosition(int x, int y)
         {
             Command command = new Command();
             command.theCommand = commands.get_position;
             command.clientId = _clientID;
-            //command.buttons.Add(new ButtonPosition(x, y));
+            command.buttons.Add(new ButtonPosition(x, y));
 
             string json = JsonConvert.SerializeObject(command);
             Command response = send(json);
+            Console.WriteLine("ontvangen {0} aantal buttens", response.buttons.Count);
             List<ButtonPosition> coordinates = new List<ButtonPosition>();
-
+            coordinates = response.buttons;
             return coordinates;
         }
 
-        public int myTurn()
+        public int whosTurn()
         {
             Command command = new Command();
             command.theCommand = commands.get_turn;
@@ -139,18 +140,12 @@ namespace MineSweeper
             string json = JsonConvert.SerializeObject(command);
             Command response = send(json);
 
-            return response.parameters["player"];
+            return response.parameters[parameter.player];
         }
 
-
-        public int getTurn()
+        public Boolean myTurn()
         {
-            return turn;
-        }
-
-        public Boolean WhosTurn()
-        {
-            if (myTurn() == _clientID)
+            if (whosTurn() == _clientID)
             {
                 return true;
             }
@@ -159,19 +154,21 @@ namespace MineSweeper
 
         public int getNumberOfPlayers()
         {
-           /* int players = 0;
-
-            string response = send(_clientID + ";get:turn");
-            string[] responses = response.Split(';');
-            players = int.Parse(responses[0]);
-
-            return players;*/
-            return 0;
+            Command command = new Command();
+            command.theCommand = commands.get_number_of_players;
+            command.clientId = _clientID;
+            string json = JsonConvert.SerializeObject(command);
+            Command response = send(json);
+            return response.parameters[parameter.player];
         }
 
         public void disconect()
         {
-           // string response = send(_clientID + ";disconect");
+            Command command = new Command();
+            command.theCommand = commands.get_disconnected;
+            command.clientId = _clientID;
+            string json = JsonConvert.SerializeObject(command);
+            Command response = send(json);
         }
 
     }
