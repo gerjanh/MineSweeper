@@ -77,6 +77,7 @@ namespace MineSweeper
 
                 case commands.new_board:
                     Console.WriteLine("er is een veld aangemaakt van {0} X {1} met {2} bommen", command.parameters[parameter.x], command.parameters[parameter.y], command.parameters[parameter.bombs]);
+                    msf.newField(command.parameters[parameter.x], command.parameters[parameter.y], command.parameters[parameter.bombs]);
                     resp.theCommand = commands.board_made;
                     resp.clientId = command.clientId;
                     break;

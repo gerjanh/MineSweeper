@@ -13,12 +13,6 @@ namespace MineSweeper
 
         public MineSweeperField()
         {
-            newField();
-        }
-
-        public void newField()
-        {
-            newField(8, 8, 10);
         }
         public void newField(int x, int y, int numOfBombs)
         {
