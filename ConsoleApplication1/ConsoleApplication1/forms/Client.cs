@@ -19,7 +19,7 @@ namespace MineSweeper
         private List<Button> buttons;
         public int fieldSizeX;
         public int fieldSizeY;
-        public static int sx=10,sy=10,sbombs=10;
+        public static int sx = 10, sy = 10, sbombs = 10;
         private int x = sx, y = sy, bombs = sbombs;
         private new Dictionary<int, Color> color;
         public Client()
@@ -42,9 +42,9 @@ namespace MineSweeper
             Console.ReadLine();
         }
 
-        public void newboard(int x , int y , int bombs)
+        public void newboard(int x, int y, int bombs)
         {
-            cc.newfield(x,y,bombs);
+            cc.newfield(x, y, bombs);
         }
 
         private void nieuweMatchToolStripMenuItem_Click(object sender, EventArgs e)
@@ -52,8 +52,8 @@ namespace MineSweeper
             x = sx;
             y = sy;
             bombs = sbombs;
-            cc.newfield(x,y,bombs);
-            generateField(x,y);
+            cc.newfield(x, y, bombs);
+            generateField(x, y);
         }
 
         private void optiesToolStripMenuItem_Click(object sender, EventArgs e)
@@ -83,19 +83,19 @@ namespace MineSweeper
         {
         }
 
-        public void generateField(int x,int y)
+        public void generateField(int x, int y)
         {
             buttons = new List<Button>();
             this.panel1.Controls.Clear();
             gameover = false;
-            fieldSizeX = 800/x;
-            fieldSizeY = 800/y;
+            fieldSizeX = 800 / x;
+            fieldSizeY = 800 / y;
             for (int i = 0; i < x; i++)
             {
-                for(int o =0;o< y; o++)
+                for (int o = 0; o < y; o++)
                 {
                     Button button = new Button();
-                    button.Location = new Point(800/x*i, 800/y*o);
+                    button.Location = new Point(800 / x * i, 800 / y * o);
                     button.Visible = true;
                     button.Size = new Size(fieldSizeX, fieldSizeY);
                     this.panel1.Controls.Add(button);
@@ -105,7 +105,7 @@ namespace MineSweeper
                 }
             }
         }
-       
+
         private void panel1_Paint_1(object sender, PaintEventArgs e)
         {
 
@@ -113,30 +113,53 @@ namespace MineSweeper
 
         void mouseDown(object sender, MouseEventArgs e)
         {
-            if (!gameover) {
-            Button button = (Button)sender;
-            if (e.Button == MouseButtons.Left)
+            if (!gameover)
             {
-                if (button.Text == "")
+                Button button = (Button)sender;
+                if (e.Button == MouseButtons.Left)
                 {
-                    fillButtons(cc.getPosition(button.Location.X / fieldSizeX, button.Location.Y / fieldSizeY));
+                    if (button.Image == null)
+                    {
+                        fillButtons(cc.getPosition(button.Location.X / fieldSizeX, button.Location.Y / fieldSizeY));
+                    }
+                }
+                if (e.Button == MouseButtons.Right)
+                {
+                    if (button.Image == null)
+                    {
+
+                        setImage(button, "flagg", false);
+                    }
+                    else
+                    {
+                        setImage(button, "", true);
+                    }
                 }
             }
-            if (e.Button == MouseButtons.Right)
-            {
-                if (button.Text == "")
-                {
-                    button.Text = "flagg";
-                    button.ForeColor = Color.Red;
-                }
-                else if (button.Text == "flagg")
-                    button.Text = "";
-            }
+
         }
-            else {
-                MessageBox.Show("je bent gameover en kunt dus niet verder gaan");
+
+        public void setImage(Button b, string imageName, bool remove)
+        {
+            if (remove)
+            {
+                b.Image = null;
             }
-            
+            else
+            {
+                string temp = this.GetType().Assembly.Location;
+                string[] verdeeld = temp.Split('\\');
+                string path = "";
+                for (int i = 0; i < verdeeld.LongLength - 3; i++)
+                {
+                    path += verdeeld[i] + '/';
+                }
+                path += "images/" + imageName + ".png";
+                Image image = Image.FromFile(path);
+                Bitmap objBitmap = new Bitmap(image, new Size(fieldSizeX, fieldSizeY));
+                b.Image = objBitmap;
+            }
+
         }
 
         public void fillButtons(List<ButtonPosition> knoppen)
@@ -149,16 +172,18 @@ namespace MineSweeper
                     {
                         if (b.point == -1)
                         {
+                            setImage(k, "bomb2", false);
                             gameover = true;
                         }
-                        else if (k.Text!=""){
+                        else if (k.Text != "")
+                        {
 
                         }
                         else
                         {
                             k.Text = b.point + "";
                             k.Enabled = false;
-                            k.BackColor= color[b.point];
+                            k.BackColor = color[b.point];
                         }
                     }
                 }
