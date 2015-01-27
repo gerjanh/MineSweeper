@@ -121,9 +121,9 @@ namespace MineSweeper.forms
                     // verzend kolommen + rijen + bommen
 
                     MessageBox.Show("verzend kolommen + rijen + bommen", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    Client.bombs = bommen;
-                    Client.x = kolommen;
-                    Client.y = rijen;
+                    Client.sbombs = bommen;
+                    Client.sx = kolommen;
+                    Client.sy = rijen;
                     this.Close();
                 }
             }
