@@ -43,13 +43,6 @@ namespace MineSweeper
         {
             Thread.Sleep(500);
             this.turn = whosTurn();
-            /* string[] responses = receive().Split(';');
-             if (responses[0] == "position")
-             {
-
-             }*/
-
-
         }
 
         private void loopConnect()

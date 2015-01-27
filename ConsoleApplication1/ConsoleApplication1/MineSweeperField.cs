@@ -39,40 +39,62 @@ namespace MineSweeper
 
                     if (randomx - 1 >= 0)
                     {
-                        if (field[randomx - 1, randomy] != -1) field[randomx - 1, randomy]++;
+                        if (field[randomx - 1, randomy] != -1)
+                        {
+                            field[randomx - 1, randomy]++;
+                        }
                         if (randomy - 1 >= 0)
                         {
-                            if (field[randomx - 1, randomy - 1] != -1) field[randomx - 1, randomy - 1]++;
+                            if (field[randomx - 1, randomy - 1] != -1)
+                            {
+                                field[randomx - 1, randomy - 1]++;
+                            }
                         }
                         if (randomy + 1 < y)
                         {
-                            if (field[randomx - 1, randomy + 1] != -1) field[randomx - 1, randomy + 1]++;
+                            if (field[randomx - 1, randomy + 1] != -1)
+                            {
+                                field[randomx - 1, randomy + 1]++;
+                            }
                         }
                     }
 
                     if (randomx + 1 < x)
                     {
-                        if (field[randomx + 1, randomy] != -1) field[randomx + 1, randomy]++;
+                        if (field[randomx + 1, randomy] != -1)
+                        {
+                            field[randomx + 1, randomy]++;
+                        }
                         if (randomy - 1 >= 0)
                         {
-                            if (field[randomx + 1, randomy - 1] != -1) field[randomx + 1, randomy - 1]++;
+                            if (field[randomx + 1, randomy - 1] != -1)
+                            {
+                                field[randomx + 1, randomy - 1]++;
+                            }
                         }
                         if (randomy + 1 < y)
                         {
-                            if (field[randomx + 1, randomy + 1] != -1) field[randomx + 1, randomy + 1]++;
+                            if (field[randomx + 1, randomy + 1] != -1)
+                            {
+                                field[randomx + 1, randomy + 1]++;
+                            }
                         }
                     }
 
                     if (randomy - 1 >= 0)
                     {
-                        if (field[randomx, randomy - 1] != -1) field[randomx, randomy - 1]++;
+                        if (field[randomx, randomy - 1] != -1)
+                        {
+                            field[randomx, randomy - 1]++;
+                        }
                     }
                     if (randomy + 1 < y)
                     {
-                        if (field[randomx, randomy + 1] != -1) field[randomx, randomy + 1]++;
+                        if (field[randomx, randomy + 1] != -1)
+                        {
+                            field[randomx, randomy + 1]++;
+                        }
                     }
-
-
                 }
             }
 
