@@ -11,17 +11,16 @@ namespace MineSweeper
 
     class Server
     {
-        private static MineSweeperField msf = new MineSweeperField();
+        //private static MineSweeperField msf = new MineSweeperField();
         private static int _cliendID = 0;
-        private static int _turn = 0;
-        private static int _numOfPlayers;
         private static List<int> _activePlayers = new List<int>();
         private static List<int> _Players = new List<int>();
-        private static List<Socket> _clientSockets = new List<Socket>();
+      //  private static List<Socket> _clientSockets = new List<Socket>();
         private static Dictionary<int, Socket> _sockets = new Dictionary<int, Socket>();
+        private static Dictionary<int, MineSweeperField> _field = new Dictionary<int, MineSweeperField>();
 
         private static Socket _serverSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-        private static byte[] _buffer = new byte[16384];
+        private static byte[] _buffer = new byte[65536];
 
 
 
@@ -37,7 +36,7 @@ namespace MineSweeper
         }
         private static void setupServer()
         {
-            _serverSocket.Bind(new IPEndPoint(IPAddress.Any, 8080));
+            _serverSocket.Bind(new IPEndPoint(IPAddress.Any, 9001)); // it over nine thousend
             _serverSocket.Listen(5);
             _serverSocket.BeginAccept(new AsyncCallback(acceptCallback), null);
 
@@ -46,8 +45,8 @@ namespace MineSweeper
         private static void acceptCallback(IAsyncResult AR)
         {
             Socket socket = _serverSocket.EndAccept(AR);
+            _field.Add(_cliendID, new MineSweeperField());
             _sockets.Add(_cliendID++, socket);
-            _numOfPlayers++;
             socket.BeginReceive(_buffer, 0, _buffer.Length, SocketFlags.None, new AsyncCallback(ReceiveCallback), socket);
             _serverSocket.BeginAccept(new AsyncCallback(acceptCallback), null);
         }
@@ -77,28 +76,20 @@ namespace MineSweeper
 
                 case commands.new_board:
                     Console.WriteLine("er is een veld aangemaakt van {0} X {1} met {2} bommen", command.parameters[parameter.x], command.parameters[parameter.y], command.parameters[parameter.bombs]);
-                    msf.newField(command.parameters[parameter.x], command.parameters[parameter.y], command.parameters[parameter.bombs]);
+                    _field[command.clientId].newField(command.parameters[parameter.x], command.parameters[parameter.y], command.parameters[parameter.bombs]);
+                    //msf.newField(command.parameters[parameter.x], command.parameters[parameter.y], command.parameters[parameter.bombs]);
                     resp.theCommand = commands.board_made;
                     resp.clientId = command.clientId;
-                    break;
 
-                case commands.get_turn:
-                    resp.theCommand = commands.turn;
-                    resp.clientId = command.clientId;
-                    resp.parameters.Add(parameter.player, _turn);
+                    
 
                     break;
-
-                case commands.get_number_of_players:
-                    resp.theCommand = commands.number_of_players;
-                    resp.clientId = command.clientId;
-                    resp.parameters.Add(parameter.player, _activePlayers.Count);
-                    break;
-
+                    
                 case commands.get_position:
                     resp.theCommand = commands.position;
                     resp.clientId = command.clientId;
-                    resp.buttons = msf.getSpot(command.buttons[0].x, command.buttons[0].y);
+                    resp.buttons = _field[command.clientId].getSpot(command.buttons[0].x, command.buttons[0].y);
+                    //resp.buttons = msf.getSpot(command.buttons[0].x, command.buttons[0].y);
                     break;
 
                 case commands.get_disconnected:
@@ -119,14 +110,9 @@ namespace MineSweeper
 
         }
 
-        private static void nextTurn()
-        {
-            _turn = _activePlayers[(_activePlayers.IndexOf(_turn) + 1) % _activePlayers.Count];
-        }
-
         private static void sendToAll(string response)
         {
-            foreach (Socket s in _clientSockets)
+            foreach (Socket s in _sockets.Values)
             {
                 send(response, s);
             }

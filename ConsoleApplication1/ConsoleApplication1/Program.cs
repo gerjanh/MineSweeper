@@ -13,7 +13,7 @@ namespace MineSweeper
         [STAThread]
         static void Main()
         {
-            try
+           /* try
             {
                 Server server = new Server();
                 Thread newThread = new Thread(new ThreadStart(server.keepopen));
@@ -23,13 +23,13 @@ namespace MineSweeper
             {
                 
                 throw;
-            }
+            }*/
 
             
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Client());
+            Application.Run(new MineSweeper.forms.MineSweeperStart());
 
 
             

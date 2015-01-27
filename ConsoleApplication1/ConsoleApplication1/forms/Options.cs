@@ -13,9 +13,10 @@ namespace MineSweeper.forms
 
     public partial class Options : Form
     {
-        public int kolommen;
-        public int rijen;
-        public int bommen;
+        private int kolommen;
+        private int rijen;
+        private int bommen;
+        private int max_size = 30;
 
         public Options()
         {
@@ -76,7 +77,7 @@ namespace MineSweeper.forms
             //Initialize textBoxes Property
             bommenTextBox.Location = new Point(afstand, bommenLabel.Top - 3);
             bommenTextBox.TextChanged += new EventHandler(this.bommenTextBox_TextChanged);
-            bommenTextBox.MaxLength = 4;
+            bommenTextBox.MaxLength = 3;
 
             //Add the labels and text box to the form
             this.Controls.Add(bommenLabel);
@@ -97,15 +98,15 @@ namespace MineSweeper.forms
             Boolean rij = false;
             Boolean bom = false;
 
-            if (kolommen <= 80 && kolommen > 0)
+            if (kolommen <= max_size && kolommen > 0)
             {
                 kolom = true;
             }
-            if (rijen <= 80 && rijen > 0)
+            if (rijen <= max_size && rijen > 0)
             {
                 rij = true;
             }
-            if (bommen < 6400 && bommen > 0 && bommen < kolommen * rijen)
+            if (bommen < (max_size * max_size - 1) && bommen > 0 && bommen < kolommen * rijen)
             {
                 bom = true;
             }
@@ -120,7 +121,7 @@ namespace MineSweeper.forms
                 {
                     // verzend kolommen + rijen + bommen
 
-                    MessageBox.Show("verzend kolommen + rijen + bommen", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                   // MessageBox.Show("verzend kolommen + rijen + bommen", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     Client.sbombs = bommen;
                     Client.sx = kolommen;
                     Client.sy = rijen;
@@ -129,7 +130,8 @@ namespace MineSweeper.forms
             }
             else
             {
-                MessageBox.Show("Let erop dat de waarden van de kolommen en rijen zich tussen de 1 en 80 moeten bevinden en van de bommen tussen 1 en 6399.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                string melding = String.Format("Let erop dat de waarden van de kolommen en rijen zich tussen de 1 en {0} moeten bevinden en van de bommen tussen 1 en {1}.",max_size,max_size*max_size-1);
+                MessageBox.Show(melding, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -147,12 +149,13 @@ namespace MineSweeper.forms
                     kolommen = Convert.ToInt32(t.Text);
                     kolommen = int.Parse(t.Text);
 
-                    if (kolommen <= 80 && kolommen > 0)
+                    if (kolommen <= max_size && kolommen > 0)
                     {
                     }
                     else
                     {
-                        MessageBox.Show("De waarden van kolommen ligt tussen 1 en 80", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        string melding = String.Format("De waarden van kolommen ligt tussen 1 en {0}",max_size);
+                        MessageBox.Show(melding, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
                 catch (FormatException)
@@ -178,12 +181,13 @@ namespace MineSweeper.forms
                     rijen = Convert.ToInt32(t.Text);
                     rijen = int.Parse(t.Text);
 
-                    if (rijen <= 80 && rijen > 0)
+                    if (rijen <= max_size && rijen > 0)
                     {
                     }
                     else
                     {
-                        MessageBox.Show("De waarden van rijen ligt tussen 1 en 80", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        string melding = String.Format("De waarden van rijen ligt tussen 1 en {0}", max_size);
+                        MessageBox.Show(melding, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
                 catch (FormatException)
@@ -209,7 +213,7 @@ namespace MineSweeper.forms
                     bommen = Convert.ToInt32(t.Text);
                     bommen = int.Parse(t.Text);
                     int aantalVelden = kolommen * rijen;
-                    if (bommen < 6400 && bommen > 0)
+                    if (bommen < (max_size * max_size-1) && bommen > 0)
                     {
                         if (bommen >= aantalVelden)
                         {
@@ -218,7 +222,8 @@ namespace MineSweeper.forms
                     }
                     else
                     {
-                        MessageBox.Show("De waarden van het aantal bommen ligt tussen 1 en 6399", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        string melding = String.Format("De waarden van het aantal bommen ligt tussen 1 en {0}",max_size*max_size-1);
+                        MessageBox.Show(melding, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
                 catch (FormatException)

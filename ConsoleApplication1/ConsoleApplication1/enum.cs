@@ -14,19 +14,15 @@ namespace MineSweeper
         disconected,
         new_board,
         board_made,
-        get_turn,
-        turn,
         get_position,
         position,
-        get_number_of_players,
-        number_of_players,
+        keep_alive,
         unknown_command
 
     }
     public enum parameter
     {
         id,
-        player,
         x,
         y,
         bombs,

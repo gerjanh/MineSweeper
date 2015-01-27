@@ -14,13 +14,13 @@ namespace MineSweeper
     public partial class Client : Form
     {
         private ClientConnect cc = new ClientConnect();
-        private bool gameover = false, won = false ;
+        private bool gameover = false;
 
         private List<Button> buttons;
         public int fieldSizeX;
         public int fieldSizeY;
         public static int sx = 10, sy = 10, sbombs = 10;
-        private int x = sx, y = sy, bombs = sbombs,flaggs=0;
+        private int x = sx, y = sy, bombs = sbombs;
         private new Dictionary<int, Color> color;
         public Client()
         {
@@ -34,27 +34,7 @@ namespace MineSweeper
             color.Add(5, Color.OrangeRed);
             color.Add(6, Color.Red);
             color.Add(7, Color.Red);
-            color.Add(8, Color.DarkRed);
-            new ClientConnect();
-        }
-
-        public Client(string ipadress)
-        {
-            if (ipadress != string.Empty)
-            {
-                new ClientConnect(ipadress);
-            }
-            InitializeComponent();
-            color = new Dictionary<int, Color>();
-            color.Add(0, Color.Gray);
-            color.Add(1, Color.Green);
-            color.Add(2, Color.GreenYellow);
-            color.Add(3, Color.Yellow);
-            color.Add(4, Color.Orange);
-            color.Add(5, Color.OrangeRed);
-            color.Add(6, Color.Red);
-            color.Add(7, Color.Red);
-            color.Add(8, Color.DarkRed);
+            color.Add(8, Color.Black);
         }
 
         public void keepopen()
@@ -72,7 +52,6 @@ namespace MineSweeper
             x = sx;
             y = sy;
             bombs = sbombs;
-            flaggs = 0;
             cc.newfield(x, y, bombs);
             generateField(x, y);
         }
@@ -108,7 +87,7 @@ namespace MineSweeper
         {
             buttons = new List<Button>();
             this.panel1.Controls.Clear();
-            gameover = won = false;
+            gameover = false;
             fieldSizeX = 800 / x;
             fieldSizeY = 800 / y;
             for (int i = 0; i < x; i++)
@@ -121,10 +100,11 @@ namespace MineSweeper
                     button.Size = new Size(fieldSizeX, fieldSizeY);
                     this.panel1.Controls.Add(button);
                     buttons.Add(button);
+                    //button.Click += new EventHandler(this.buttonClick);
                     button.MouseDown += new MouseEventHandler(this.mouseDown);
                 }
             }
-            setBommenLabel();
+            setBommenLabel();W
         }
 
         private void panel1_Paint_1(object sender, PaintEventArgs e)
@@ -134,17 +114,15 @@ namespace MineSweeper
 
         void mouseDown(object sender, MouseEventArgs e)
         {
-            if (!gameover&&!won)
+            if (!gameover)
             {
                 Button button = (Button)sender;
                 if (e.Button == MouseButtons.Left)
                 {
-                    
-                        if (button.Image == null)
-                        {
-                            fillButtons(cc.getPosition(button.Location.X / fieldSizeX, button.Location.Y / fieldSizeY));
-                        }
-                    
+                    if (button.Image == null)
+                    {
+                        fillButtons(cc.getPosition(button.Location.X / fieldSizeX, button.Location.Y / fieldSizeY));
+                    }
                 }
                 if (e.Button == MouseButtons.Right)
                 {
@@ -152,31 +130,16 @@ namespace MineSweeper
                     {
 
                         setImage(button, "flagg", false);
-                        flaggs++;
                     }
                     else
                     {
                         setImage(button, "", true);
-                        flaggs--;
                     }
-                    
                 }
-                checkIfWon();
-                setBommenLabel();
             }
-        }
 
-        private void checkIfWon()
-        {
-            won = true;
-            foreach (Button b in buttons)
-            {
-                if (b.Text == "" && b.Image == null)
-                {
-                    won = false;
-                }
-            }
         }
+<<<<<<< HEAD
 
         public void setImage(Button b, string imageName, bool remove)
         {
@@ -197,6 +160,11 @@ namespace MineSweeper
                 Image image = Image.FromFile(path);
                 Bitmap objBitmap = new Bitmap(image, new Size(fieldSizeX, fieldSizeY));
                 b.Image = objBitmap;
+=======
+            else {
+                setBommenLabel();
+                MessageBox.Show("je bent gameover en kunt dus niet verder gaan");
+>>>>>>> 30d94b399a1fcb8e8352bff88013cb5702158e44
             }
 
         }
@@ -214,7 +182,7 @@ namespace MineSweeper
                             setImage(k, "bomb2", false);
                             gameover = true;
                         }
-                        else if (k.Text != ""||k.Image!=null)
+                        else if (k.Text != "")
                         {
 
                         }
@@ -232,16 +200,13 @@ namespace MineSweeper
 
         private void setBommenLabel()
         {
-            if (gameover)
+            if (gameover == true)
             {
                 AantalBommen.Text = "Game Over! Start een nieuwe match!";
             }
-            else if (won){
-                AantalBommen.Text = "je hebt gewonnen";
-            }
             else
             {
-                AantalBommen.Text = "Aantal bommen: "+ (bombs -flaggs);
+                AantalBommen.Text = "Aantal bommen: "+ bombs /*-flaggs*/;
             }
             
         }

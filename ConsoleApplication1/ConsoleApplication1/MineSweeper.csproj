@@ -58,6 +58,12 @@
     <Compile Include="forms\Colofon.Designer.cs">
       <DependentUpon>Colofon.cs</DependentUpon>
     </Compile>
+    <Compile Include="forms\MineSweeperStart.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="forms\MineSweeperStart.Designer.cs">
+      <DependentUpon>MineSweeperStart.cs</DependentUpon>
+    </Compile>
     <Compile Include="forms\Options.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -95,6 +101,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="forms\Colofon.resx">
       <DependentUpon>Colofon.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="forms\MineSweeperStart.resx">
+      <DependentUpon>MineSweeperStart.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="forms\Options.resx">
       <DependentUpon>Options.cs</DependentUpon>

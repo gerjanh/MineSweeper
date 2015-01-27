@@ -14,7 +14,8 @@ namespace MineSweeper
     {
         private int _clientID;
         private static Socket _clientSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-        private int turn;
+        //public bool verbonden { get; }
+        private IPAddress ipAdress = IPAddress.Loopback;
 
         public ClientConnect()
         {
@@ -23,15 +24,26 @@ namespace MineSweeper
             newThread.Start();
         }
 
-        ClientConnect cc;
-        /*public void alive(ClientConnect ClientConnect)
+        public ClientConnect(string ip)
         {
-            this.cc = ClientConnect;
-            while (true)
-            {
 
+            if (IPAddress.TryParse(ip, out ipAdress))
+            {
+                loopConnect();
+                Thread newThread = new Thread(new ThreadStart(loopCheck));
+                newThread.Start();
             }
-        }*/
+            else
+            {
+                loopConnect();
+                Thread newThread = new Thread(new ThreadStart(loopCheck));
+                newThread.Start();
+            }
+
+
+
+
+        }
 
         public void keepalive()
         {
@@ -41,8 +53,10 @@ namespace MineSweeper
 
         public void loopCheck()
         {
+            while(true){
             Thread.Sleep(500);
-            this.turn = whosTurn();
+        }
+
         }
 
         private void loopConnect()
@@ -56,7 +70,7 @@ namespace MineSweeper
                 Console.WriteLine("poging " + attempts);
                 try
                 {
-                    _clientSocket.Connect(IPAddress.Loopback, 8080);
+                    _clientSocket.Connect(ipAdress, 9001); // its over nine thousend
                 }
                 catch (SocketException e)
                 {
@@ -87,7 +101,7 @@ namespace MineSweeper
         private Command receive()
         {
 
-            byte[] receivedBuf = new byte[16384];
+            byte[] receivedBuf = new byte[65536];
             int rec = _clientSocket.Receive(receivedBuf);
             byte[] data = new byte[rec];
             Array.Copy(receivedBuf, data, rec);
@@ -123,36 +137,6 @@ namespace MineSweeper
             List<ButtonPosition> coordinates = new List<ButtonPosition>();
             coordinates = response.buttons;
             return coordinates;
-        }
-
-        public int whosTurn()
-        {
-            Command command = new Command();
-            command.theCommand = commands.get_turn;
-            command.clientId = _clientID;
-            string json = JsonConvert.SerializeObject(command);
-            Command response = send(json);
-
-            return response.parameters[parameter.player];
-        }
-
-        public Boolean myTurn()
-        {
-            if (whosTurn() == _clientID)
-            {
-                return true;
-            }
-            else return false;
-        }
-
-        public int getNumberOfPlayers()
-        {
-            Command command = new Command();
-            command.theCommand = commands.get_number_of_players;
-            command.clientId = _clientID;
-            string json = JsonConvert.SerializeObject(command);
-            Command response = send(json);
-            return response.parameters[parameter.player];
         }
 
         public void disconect()
