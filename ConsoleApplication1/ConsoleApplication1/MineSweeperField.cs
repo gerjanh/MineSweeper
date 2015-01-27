@@ -91,18 +91,6 @@ namespace MineSweeper
                     }
                 }
             }
-            for (int rx = 0; rx < width; rx++)
-            {
-                for (int ry = 0; ry < hight; ry++)
-                {
-                    if (field[ry, rx]!=-1)
-                    {
-                        Console.Write(" ");
-                    }
-                    Console.Write(field[ry,rx]+"  ");
-                }
-                Console.WriteLine("");
-            }
         }
         public int[,] getfield()
         {

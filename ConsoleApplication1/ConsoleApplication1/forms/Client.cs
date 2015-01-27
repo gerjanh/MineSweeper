@@ -20,7 +20,7 @@ namespace MineSweeper
         public int fieldSizeX;
         public int fieldSizeY;
         public static int sx = 10, sy = 10, sbombs = 10;
-        private int x = sx, y = sy, bombs = sbombs,flaggs=0;
+        private int x = sx, y = sy, bombs = sbombs,flaggs=0,timer=0;
         private new Dictionary<int, Color> color;
         public Client()
         {
@@ -36,6 +36,7 @@ namespace MineSweeper
             color.Add(7, Color.Red);
             color.Add(8, Color.DarkRed);
             new ClientConnect();
+            setCounter();
         }
 
         public Client(string ipadress)
@@ -55,16 +56,12 @@ namespace MineSweeper
             color.Add(6, Color.Red);
             color.Add(7, Color.Red);
             color.Add(8, Color.DarkRed);
+            setCounter();
         }
 
         public void keepopen()
         {
             Console.ReadLine();
-        }
-
-        public void newboard(int x, int y, int bombs)
-        {
-            cc.newfield(x, y, bombs);
         }
 
         private void nieuweMatchToolStripMenuItem_Click(object sender, EventArgs e)
@@ -125,6 +122,8 @@ namespace MineSweeper
                 }
             }
             setBommenLabel();
+            timer = 0;
+            startCounter();
         }
 
         private void panel1_Paint_1(object sender, PaintEventArgs e)
@@ -235,9 +234,11 @@ namespace MineSweeper
             if (gameover)
             {
                 AantalBommen.Text = "Game Over! Start een nieuwe match!";
+                timer1.Stop();
             }
             else if (won){
                 AantalBommen.Text = "je hebt gewonnen";
+                timer1.Stop();
             }
             else
             {
@@ -245,6 +246,25 @@ namespace MineSweeper
             }
             
         }
+        private void setCounter()
+        {
+            timer1.Interval = 1000;
+            timer1.Tick += new EventHandler(OnTimedEvent);
+            label1.Text = " seconden";
+        }
 
+        private void startCounter()
+        {
+            label1.Text = " seconden";
+            timer1.Start();
+        }
+
+        private void OnTimedEvent(Object source, EventArgs e)
+        {
+            
+            label1.Text = timer++ + " seconden";
+
+        }
     }
+    
 }
