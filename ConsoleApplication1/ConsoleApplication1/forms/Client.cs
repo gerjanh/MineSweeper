@@ -104,6 +104,7 @@ namespace MineSweeper
                     button.MouseDown += new MouseEventHandler(this.mouseDown);
                 }
             }
+            setBommenLabel();
         }
 
         private void panel1_Paint_1(object sender, PaintEventArgs e)
@@ -113,7 +114,7 @@ namespace MineSweeper
 
         void mouseDown(object sender, MouseEventArgs e)
         {
-            if (!gameover)
+             if (!gameover)
             {
                 Button button = (Button)sender;
                 if (e.Button == MouseButtons.Left)
@@ -158,6 +159,7 @@ namespace MineSweeper
                 Image image = Image.FromFile(path);
                 Bitmap objBitmap = new Bitmap(image, new Size(fieldSizeX, fieldSizeY));
                 b.Image = objBitmap;
+                MessageBox.Show("je bent gameover en kunt dus niet verder gaan");
             }
 
         }
@@ -188,6 +190,20 @@ namespace MineSweeper
                     }
                 }
             }
+            setBommenLabel();
+        }
+
+        private void setBommenLabel()
+        {
+            if (gameover == true)
+            {
+                AantalBommen.Text = "Game Over! Start een nieuwe match!";
+            }
+            else
+            {
+                AantalBommen.Text = "Aantal bommen: "+ bombs /*-flaggs*/;
+            }
+            
         }
 
     }
