@@ -107,13 +107,8 @@ namespace MineSweeper
         private List<ButtonPosition> serounding(int x, int y, List<ButtonPosition> number)
         {
             bool temp = false;
-            foreach (ButtonPosition b in number)
-            {
-                if (b.x == x && b.y == y)
-                {
-                    temp = true;
-                }
-            }
+            temp = (number.Any(b => b.x == x && b.y == y));
+            
             if (!(temp))
             {
 

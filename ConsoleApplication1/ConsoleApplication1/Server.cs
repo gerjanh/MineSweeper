@@ -25,12 +25,12 @@ namespace MineSweeper
         public Server()
         {
             setupServer();
-            Console.Title = "server";
+           // Console.Title = "server";
         }
 
         public void keepopen()
         {
-            Console.ReadLine();
+         //   Console.ReadLine();
         }
         private static void setupServer()
         {
@@ -104,6 +104,7 @@ namespace MineSweeper
 
             }
             send(resp, command.clientId);
+            socket.BeginReceive(_buffer, 0, _buffer.Length, SocketFlags.None, new AsyncCallback(ReceiveCallback), socket);
 
         }
 
@@ -118,8 +119,8 @@ namespace MineSweeper
         {
             byte[] data = Encoding.ASCII.GetBytes(response);
             socket.BeginSend(data, 0, data.Length, SocketFlags.None, new AsyncCallback(SendCallback), socket);
-            socket.BeginReceive(_buffer, 0, _buffer.Length, SocketFlags.None, new AsyncCallback(ReceiveCallback), socket);
-            _serverSocket.BeginAccept(new AsyncCallback(acceptCallback), null);
+            //socket.BeginReceive(_buffer, 0, _buffer.Length, SocketFlags.None, new AsyncCallback(ReceiveCallback), socket);
+            //_serverSocket.BeginAccept(new AsyncCallback(acceptCallback), null);
         }
 
         public static void send(Command mesage, int playerid)

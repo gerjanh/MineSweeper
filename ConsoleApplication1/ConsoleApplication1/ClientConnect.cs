@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
@@ -13,12 +14,13 @@ namespace MineSweeper
     class ClientConnect
     {
         private int _clientID;
-        private static Socket _clientSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+        private static Socket _clientSocket;
         //public bool verbonden { get; }
         private IPAddress ipAdress = IPAddress.Loopback;
 
         public ClientConnect()
         {
+            _clientSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             loopConnect();
             Thread newThread = new Thread(new ThreadStart(loopCheck));
             newThread.Start();
@@ -29,6 +31,7 @@ namespace MineSweeper
 
             if (IPAddress.TryParse(ip, out ipAdress))
             {
+                _clientSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
                 loopConnect();
                 Thread newThread = new Thread(new ThreadStart(loopCheck));
                 newThread.Start();
@@ -39,10 +42,6 @@ namespace MineSweeper
                 Thread newThread = new Thread(new ThreadStart(loopCheck));
                 newThread.Start();
             }
-
-
-
-
         }
 
         public void keepalive()
@@ -63,7 +62,7 @@ namespace MineSweeper
         {
             int attempts = 0;
 
-            while (!_clientSocket.Connected && attempts < 100)
+            while (!_clientSocket.Connected && attempts < 3)
             {
                 attempts++;
                 Thread.Sleep(500);
@@ -107,8 +106,8 @@ namespace MineSweeper
             Array.Copy(receivedBuf, data, rec);
             string receive = Encoding.ASCII.GetString(data);
             Command temp = JsonConvert.DeserializeObject<Command>(receive);
-            Console.WriteLine(temp.theCommand.ToString() + " " + temp.clientId + " " + temp.parameters.Count);
-
+            //Console.WriteLine(temp.theCommand.ToString() + " " + temp.clientId + " " + temp.parameters.Count);
+            Debug.WriteLine(temp.theCommand.ToString() + " " + temp.clientId + " " + temp.parameters.Count);
             return temp;
         }
 

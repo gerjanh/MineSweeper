@@ -13,7 +13,7 @@ namespace MineSweeper
 {
     public partial class Client : Form
     {
-        private ClientConnect cc = new ClientConnect();
+        private ClientConnect cc ;//= new ClientConnect();
         private bool gameover = false, won = false ;
 
         private List<Button> buttons;
@@ -35,7 +35,7 @@ namespace MineSweeper
             color.Add(6, Color.Red);
             color.Add(7, Color.Red);
             color.Add(8, Color.DarkRed);
-            new ClientConnect();
+            cc= new ClientConnect();
             setCounter();
         }
 
@@ -43,7 +43,7 @@ namespace MineSweeper
         {
             if (ipadress != string.Empty)
             {
-                new ClientConnect(ipadress);
+                cc=new ClientConnect(ipadress);
             }
             InitializeComponent();
             color = new Dictionary<int, Color>();

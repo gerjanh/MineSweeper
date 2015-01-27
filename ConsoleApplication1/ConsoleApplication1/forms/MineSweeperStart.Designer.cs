@@ -59,7 +59,7 @@
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(117, 20);
             this.textBox1.TabIndex = 2;
-            this.textBox1.Text = "vul hier je ipadress in";
+            this.textBox1.Text = "127.0.0.1";
             this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // MineSweeperStart

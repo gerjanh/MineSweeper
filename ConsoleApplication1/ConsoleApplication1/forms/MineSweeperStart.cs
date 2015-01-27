@@ -34,22 +34,22 @@ namespace MineSweeper.forms
 
                 throw;
             }
-
+            /*
             this.Hide();
             Client b = new Client();
             b.ShowDialog();
-            this.Close();
+            this.Close(); */
         }
 
         private void join_Click(object sender, EventArgs e)
         {
             IPAddress ipAdress;
-            if (IPAddress.TryParse(ipadress, out ipAdress))
+            if (IPAddress.TryParse(textBox1.Text, out ipAdress))
             {
                 this.Hide();
-                Client c = new Client(ipadress);
-                c.ShowDialog();
-                this.Close();
+                Client b = new Client(textBox1.Text);
+                b.ShowDialog();
+
             }
             else {
                 MessageBox.Show("Dit is geen ip-address een ip-address heeft het formaat van 123.456.789.101 vul voor je eigen computen 127.0.0.1 in bij ip-address", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -58,8 +58,6 @@ namespace MineSweeper.forms
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-            TextBox t = (TextBox)sender;
-            ipadress = t.Text;
         }
 
     }
