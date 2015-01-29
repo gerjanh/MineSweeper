@@ -15,7 +15,6 @@ namespace MineSweeper.forms
     public partial class MineSweeperStart : Form
     {
 
-        private string ipadress = "";
         public MineSweeperStart()
         {
             InitializeComponent();
@@ -23,22 +22,10 @@ namespace MineSweeper.forms
 
         private void button1_Click(object sender, EventArgs e)
         {
-            try
-            {
-                Server server = new Server();
-                Thread newThread = new Thread(new ThreadStart(server.keepopen));
-                newThread.Start();
-            }
-            catch (Exception)
-            {
-
-                throw;
-            }
-            /*
             this.Hide();
-            Client b = new Client();
+            serverForm b = new serverForm();
             b.ShowDialog();
-            this.Close(); */
+            this.Close(); 
         }
 
         private void join_Click(object sender, EventArgs e)

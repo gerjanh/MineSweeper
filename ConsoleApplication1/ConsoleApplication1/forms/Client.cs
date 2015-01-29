@@ -1,11 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using MineSweeper.forms;
 
@@ -22,22 +17,6 @@ namespace MineSweeper
         public static int sx = 10, sy = 10, sbombs = 10;
         private int x = sx, y = sy, bombs = sbombs,flaggs=0,timer=0;
         private new Dictionary<int, Color> color;
-        public Client()
-        {
-            InitializeComponent();
-            color = new Dictionary<int, Color>();
-            color.Add(0, Color.Gray);
-            color.Add(1, Color.Green);
-            color.Add(2, Color.GreenYellow);
-            color.Add(3, Color.Yellow);
-            color.Add(4, Color.Orange);
-            color.Add(5, Color.OrangeRed);
-            color.Add(6, Color.Red);
-            color.Add(7, Color.Red);
-            color.Add(8, Color.DarkRed);
-            cc= new ClientConnect();
-            setCounter();
-        }
 
         public Client(string ipadress)
         {
@@ -57,6 +36,14 @@ namespace MineSweeper
             color.Add(7, Color.Red);
             color.Add(8, Color.DarkRed);
             setCounter();
+           // this.FormClosing += MyClosedHandler;
+          //  this.FormClosed += MyClosedHandler;
+        }
+
+        protected void MyClosedHandler(object sender, EventArgs e)
+        {
+             // cc.disconect();
+              this.Close();
         }
 
         public void keepopen()
@@ -226,7 +213,7 @@ namespace MineSweeper
                     }
                 }
             }
-            setBommenLabel();
+            //setBommenLabel();
         }
 
         private void setBommenLabel()
@@ -234,15 +221,20 @@ namespace MineSweeper
             if (gameover)
             {
                 AantalBommen.Text = "Game Over! Start een nieuwe match!";
+                AantalBommen.BackColor = Color.Red;
+                MessageBox.Show("Game Over, start een nieuwe match", "Game Over", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                 timer1.Stop();
             }
             else if (won){
-                AantalBommen.Text = "je hebt gewonnen";
+                AantalBommen.Text = "Je hebt gewonnen";
+                AantalBommen.BackColor=Color.Green;
                 timer1.Stop();
+                MessageBox.Show("Je hebt gewonnen stat een nieuwe match om verder te kunnen spelen", "Won", MessageBoxButtons.OK, MessageBoxIcon.None);
             }
             else
             {
                 AantalBommen.Text = "Aantal bommen: "+ (bombs -flaggs);
+                AantalBommen.BackColor=Color.White;
             }
             
         }
@@ -266,5 +258,7 @@ namespace MineSweeper
 
         }
     }
+
+
     
 }

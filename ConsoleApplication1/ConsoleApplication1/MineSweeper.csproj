@@ -76,6 +76,12 @@
     <Compile Include="forms\Rules.Designer.cs">
       <DependentUpon>Rules.cs</DependentUpon>
     </Compile>
+    <Compile Include="forms\serverForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="forms\serverForm.Designer.cs">
+      <DependentUpon>serverForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Applicatie.cs" />
     <Compile Include="ButtonPosition.cs" />
@@ -110,6 +116,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="forms\Rules.resx">
       <DependentUpon>Rules.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="forms\serverForm.resx">
+      <DependentUpon>serverForm.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

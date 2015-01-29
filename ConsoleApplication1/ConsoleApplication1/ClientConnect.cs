@@ -44,18 +44,23 @@ namespace MineSweeper
             }
         }
 
-        public void keepalive()
-        {
-
-
-        }
 
         public void loopCheck()
         {
             while(true){
             Thread.Sleep(500);
+           // keepalive();
         }
 
+        }
+
+        private void keepalive()
+        {
+            Command command = new Command();
+            command.theCommand = commands.keep_alive;
+            command.clientId = _clientID;
+            string json = JsonConvert.SerializeObject(command);
+            send(json);
         }
 
         private void loopConnect()
@@ -69,7 +74,7 @@ namespace MineSweeper
                 Console.WriteLine("poging " + attempts);
                 try
                 {
-                    _clientSocket.Connect(ipAdress, 9001); // its over nine thousend
+                    _clientSocket.Connect(ipAdress, 9000); // its over nine thousend
                 }
                 catch (SocketException e)
                 {
@@ -88,6 +93,13 @@ namespace MineSweeper
             }
         }
 
+        private void justSend(string text)
+        {
+            String request = text;
+            byte[] buffer = Encoding.ASCII.GetBytes(request);
+            _clientSocket.Send(buffer);
+        }
+
         private Command send(string text)
         {
             String request = text;
@@ -99,7 +111,6 @@ namespace MineSweeper
 
         private Command receive()
         {
-
             byte[] receivedBuf = new byte[65536];
             int rec = _clientSocket.Receive(receivedBuf);
             byte[] data = new byte[rec];
@@ -113,13 +124,13 @@ namespace MineSweeper
 
         public void newfield(int x, int y, int numberOfBombs)
         {
-            Command newBoardCommand = new Command();
-            newBoardCommand.theCommand = commands.new_board;
-            newBoardCommand.clientId = _clientID;
-            newBoardCommand.parameters.Add(parameter.bombs, numberOfBombs);
-            newBoardCommand.parameters.Add(parameter.x, x);
-            newBoardCommand.parameters.Add(parameter.y, y);
-            string json = JsonConvert.SerializeObject(newBoardCommand);
+            Command command = new Command();
+            command.theCommand = commands.new_board;
+            command.clientId = _clientID;
+            command.parameters.Add(parameter.bombs, numberOfBombs);
+            command.parameters.Add(parameter.x, x);
+            command.parameters.Add(parameter.y, y);
+            string json = JsonConvert.SerializeObject(command);
             send(json);
 
         }
@@ -144,7 +155,7 @@ namespace MineSweeper
             command.theCommand = commands.get_disconnected;
             command.clientId = _clientID;
             string json = JsonConvert.SerializeObject(command);
-            Command response = send(json);
+            justSend(json);
         }
 
     }
