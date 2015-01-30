@@ -233,6 +233,7 @@ namespace MineSweeper
                 timer1.Stop();
                 MessageBox.Show("Je hebt gewonnen start een nieuwe match om verder te kunnen spelen", "Won", MessageBoxButtons.OK, MessageBoxIcon.None);
                 updateHighscores = new UpdateHighscores(sbombs,x*y,timer);
+                highscores = new Highscores();
             }
             else
             {

@@ -17,10 +17,19 @@ namespace MineSweeper.forms
         public Highscores()
         {
             InitializeComponent();
-            table = new DataTable();
 
+            string lastLine = File.ReadLines("C://ProgramData//highscoresMineSweeper.txt").Last();
+            char[] delimiters = new char[] { '-' };
+            string[] parts = lastLine.Split(delimiters, StringSplitOptions.RemoveEmptyEntries);
+
+            bommenLabel.Text = "Aantal bommen: " + parts[0];
+            veldGrootteLabel.Text = "Grootte van het veld: " + parts[1] + " vakjes";
+            tijdLabel.Text ="Je hebt dit level voltooid in: " + parts[2] + " seconden";
+            //table = new DataTable();
         }
 
+
+        /*
         public DataTable dataTable()
         {
             table.Columns.Add("Bommen", typeof(int));
@@ -59,6 +68,6 @@ namespace MineSweeper.forms
             }
 
             return table;
-        }
+        }*/
     }
 }
