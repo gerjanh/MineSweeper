@@ -227,12 +227,14 @@ namespace MineSweeper
                 MessageBox.Show("Game Over, start een nieuwe match", "Game Over", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                 timer1.Stop();
             }
-            else if (won){
+            else if (won)
+            {
+                timer1.Stop();
+
                 AantalBommen.Text = "Je hebt gewonnen";
                 AantalBommen.BackColor=Color.Green;
-                timer1.Stop();
                 MessageBox.Show("Je hebt gewonnen start een nieuwe match om verder te kunnen spelen", "Won", MessageBoxButtons.OK, MessageBoxIcon.None);
-                updateHighscores = new UpdateHighscores(sbombs,x*y,timer);
+                updateHighscores = new UpdateHighscores(sbombs, x * y, timer);
                 highscores = new Highscores();
             }
             else
@@ -257,8 +259,8 @@ namespace MineSweeper
 
         private void OnTimedEvent(Object source, EventArgs e)
         {
-            
-            label1.Text = timer++ + " seconden";
+            timer++;
+            label1.Text = timer + " seconden";
 
         }
     }

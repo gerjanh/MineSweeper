@@ -82,6 +82,7 @@
     <Compile Include="forms\serverForm.Designer.cs">
       <DependentUpon>serverForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="highscoreScore.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Applicatie.cs" />
     <Compile Include="ButtonPosition.cs" />

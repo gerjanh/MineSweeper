@@ -120,7 +120,7 @@ namespace MineSweeper.forms
             {
 
                 case commands.get_connected:
-                    text1 = "new player with id " + _cliendID + " has joined this server \r\n" + text1;
+                    text1 = "new player with id " + _cliendID + " has joined this server \n" + text1;
                     resp.theCommand = commands.connected;
                     resp.parameters.Add(parameter.id, _cliendID);
                     _Players.Add(_cliendID);

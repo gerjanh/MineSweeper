@@ -28,46 +28,25 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.bommenLabel = new System.Windows.Forms.Label();
-            this.veldGrootteLabel = new System.Windows.Forms.Label();
-            this.tijdLabel = new System.Windows.Forms.Label();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
-            // bommenLabel
+            // textBox1
             // 
-            this.bommenLabel.AutoSize = true;
-            this.bommenLabel.Location = new System.Drawing.Point(12, 9);
-            this.bommenLabel.Name = "bommenLabel";
-            this.bommenLabel.Size = new System.Drawing.Size(86, 13);
-            this.bommenLabel.TabIndex = 0;
-            this.bommenLabel.Text = "Aantal bommen: ";
-            // 
-            // veldGrootteLabel
-            // 
-            this.veldGrootteLabel.AutoSize = true;
-            this.veldGrootteLabel.Location = new System.Drawing.Point(12, 41);
-            this.veldGrootteLabel.Name = "veldGrootteLabel";
-            this.veldGrootteLabel.Size = new System.Drawing.Size(71, 13);
-            this.veldGrootteLabel.TabIndex = 1;
-            this.veldGrootteLabel.Text = "Grootte veld: ";
-            // 
-            // tijdLabel
-            // 
-            this.tijdLabel.AutoSize = true;
-            this.tijdLabel.Location = new System.Drawing.Point(12, 74);
-            this.tijdLabel.Name = "tijdLabel";
-            this.tijdLabel.Size = new System.Drawing.Size(77, 13);
-            this.tijdLabel.TabIndex = 2;
-            this.tijdLabel.Text = "Tijd: seconden";
+            this.textBox1.Location = new System.Drawing.Point(12, 12);
+            this.textBox1.Multiline = true;
+            this.textBox1.Name = "textBox1";
+            this.textBox1.ReadOnly = true;
+            this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.textBox1.Size = new System.Drawing.Size(455, 386);
+            this.textBox1.TabIndex = 3;
             // 
             // Highscores
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(479, 410);
-            this.Controls.Add(this.tijdLabel);
-            this.Controls.Add(this.veldGrootteLabel);
-            this.Controls.Add(this.bommenLabel);
+            this.Controls.Add(this.textBox1);
             this.Name = "Highscores";
             this.Text = "Highscores";
             this.ResumeLayout(false);
@@ -77,9 +56,7 @@
 
         #endregion
 
-        private System.Windows.Forms.Label bommenLabel;
-        private System.Windows.Forms.Label veldGrootteLabel;
-        private System.Windows.Forms.Label tijdLabel;
+        private System.Windows.Forms.TextBox textBox1;
 
 
 
