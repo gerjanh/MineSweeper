@@ -40,6 +40,7 @@
             this.AantalBommen = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.label1 = new System.Windows.Forms.Label();
+            this.highscoresToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -47,7 +48,8 @@
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.gameToolStripMenuItem,
-            this.helpToolStripMenuItem});
+            this.helpToolStripMenuItem,
+            this.highscoresToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(800, 24);
@@ -66,14 +68,14 @@
             // optiesToolStripMenuItem
             // 
             this.optiesToolStripMenuItem.Name = "optiesToolStripMenuItem";
-            this.optiesToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
+            this.optiesToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.optiesToolStripMenuItem.Text = "Opties";
             this.optiesToolStripMenuItem.Click += new System.EventHandler(this.optiesToolStripMenuItem_Click);
             // 
             // nieuweMatchToolStripMenuItem
             // 
             this.nieuweMatchToolStripMenuItem.Name = "nieuweMatchToolStripMenuItem";
-            this.nieuweMatchToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
+            this.nieuweMatchToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.nieuweMatchToolStripMenuItem.Text = "Nieuwe match";
             this.nieuweMatchToolStripMenuItem.Click += new System.EventHandler(this.nieuweMatchToolStripMenuItem_Click);
             // 
@@ -89,16 +91,16 @@
             // spelregelsToolStripMenuItem
             // 
             this.spelregelsToolStripMenuItem.Name = "spelregelsToolStripMenuItem";
-            this.spelregelsToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
+            this.spelregelsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.spelregelsToolStripMenuItem.Text = "Spelregels";
             this.spelregelsToolStripMenuItem.Click += new System.EventHandler(this.spelregelsToolStripMenuItem_Click);
             // 
             // colofonToolStripMenuItem
             // 
             this.colofonToolStripMenuItem.Name = "colofonToolStripMenuItem";
-            this.colofonToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
+            this.colofonToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.colofonToolStripMenuItem.Text = "Colofon";
-            this.colofonToolStripMenuItem.Click += new System.EventHandler(this.colofonToolStripMenuItem_Click);
+            this.colofonToolStripMenuItem.Click += new System.EventHandler(this.highscoresToolStripMenuItem_Click);
             // 
             // panel1
             // 
@@ -125,6 +127,13 @@
             this.label1.Size = new System.Drawing.Size(35, 13);
             this.label1.TabIndex = 3;
             this.label1.Text = "label1";
+            // 
+            // highscoresToolStripMenuItem
+            // 
+            this.highscoresToolStripMenuItem.Name = "highscoresToolStripMenuItem";
+            this.highscoresToolStripMenuItem.Size = new System.Drawing.Size(78, 20);
+            this.highscoresToolStripMenuItem.Text = "Highscores";
+            this.highscoresToolStripMenuItem.Click += new System.EventHandler(this.highscoresToolStripMenuItem_Click);
             // 
             // Client
             // 
@@ -159,6 +168,7 @@
         private System.Windows.Forms.Label AantalBommen;
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ToolStripMenuItem highscoresToolStripMenuItem;
 
     }
 }

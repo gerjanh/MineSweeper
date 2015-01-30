@@ -17,6 +17,8 @@ namespace MineSweeper
         public static int sx = 10, sy = 10, sbombs = 10;
         private int x = sx, y = sy, bombs = sbombs,flaggs=0,timer=0;
         private new Dictionary<int, Color> color;
+        private UpdateHighscores updateHighscores;
+        private Highscores highscores;
 
         public Client(string ipadress)
         {
@@ -73,10 +75,10 @@ namespace MineSweeper
             rules.ShowDialog();
         }
 
-        private void colofonToolStripMenuItem_Click(object sender, EventArgs e)
+        private void highscoresToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Colofon colofon = new Colofon();
-            colofon.ShowDialog();
+            Highscores highscores = new Highscores();
+            highscores.ShowDialog();
         }
 
         private void panel1_Paint(object sender, PaintEventArgs e)
@@ -229,7 +231,8 @@ namespace MineSweeper
                 AantalBommen.Text = "Je hebt gewonnen";
                 AantalBommen.BackColor=Color.Green;
                 timer1.Stop();
-                MessageBox.Show("Je hebt gewonnen stat een nieuwe match om verder te kunnen spelen", "Won", MessageBoxButtons.OK, MessageBoxIcon.None);
+                MessageBox.Show("Je hebt gewonnen start een nieuwe match om verder te kunnen spelen", "Won", MessageBoxButtons.OK, MessageBoxIcon.None);
+                updateHighscores = new UpdateHighscores(sbombs,x*y,timer);
             }
             else
             {

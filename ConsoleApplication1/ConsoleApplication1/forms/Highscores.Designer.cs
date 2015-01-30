@@ -1,6 +1,6 @@
 ﻿namespace MineSweeper.forms
 {
-    partial class Colofon
+    partial class Highscores
     {
         /// <summary>
         /// Required designer variable.
@@ -30,18 +30,21 @@
         {
             this.SuspendLayout();
             // 
-            // Colofon
+            // Highscores
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 262);
-            this.Name = "Colofon";
-            this.Text = "Colofon";
-            this.Load += new System.EventHandler(this.Colofon_Load);
+            this.ClientSize = new System.Drawing.Size(479, 410);
+            this.Name = "Highscores";
+            this.Text = "Highscores";
             this.ResumeLayout(false);
 
         }
 
         #endregion
+
+
+
+
     }
 }

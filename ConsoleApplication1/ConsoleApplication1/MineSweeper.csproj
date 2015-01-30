@@ -52,11 +52,11 @@
   <ItemGroup>
     <Compile Include="Command.cs" />
     <Compile Include="enum.cs" />
-    <Compile Include="forms\Colofon.cs">
+    <Compile Include="forms\Highscores.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="forms\Colofon.Designer.cs">
-      <DependentUpon>Colofon.cs</DependentUpon>
+    <Compile Include="forms\Highscores.Designer.cs">
+      <DependentUpon>Highscores.cs</DependentUpon>
     </Compile>
     <Compile Include="forms\MineSweeperStart.cs">
       <SubType>Form</SubType>
@@ -96,6 +96,7 @@
       <DependentUpon>Client.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="updateHighscores.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -105,8 +106,8 @@
     <EmbeddedResource Include="forms\Client.resx">
       <DependentUpon>Client.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="forms\Colofon.resx">
-      <DependentUpon>Colofon.cs</DependentUpon>
+    <EmbeddedResource Include="forms\Highscores.resx">
+      <DependentUpon>Highscores.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="forms\MineSweeperStart.resx">
       <DependentUpon>MineSweeperStart.cs</DependentUpon>
