@@ -36,11 +36,11 @@
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.spelregelsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.colofonToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.highscoresToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1 = new System.Windows.Forms.Panel();
             this.AantalBommen = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.label1 = new System.Windows.Forms.Label();
-            this.highscoresToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -68,14 +68,14 @@
             // optiesToolStripMenuItem
             // 
             this.optiesToolStripMenuItem.Name = "optiesToolStripMenuItem";
-            this.optiesToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.optiesToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
             this.optiesToolStripMenuItem.Text = "Opties";
             this.optiesToolStripMenuItem.Click += new System.EventHandler(this.optiesToolStripMenuItem_Click);
             // 
             // nieuweMatchToolStripMenuItem
             // 
             this.nieuweMatchToolStripMenuItem.Name = "nieuweMatchToolStripMenuItem";
-            this.nieuweMatchToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.nieuweMatchToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
             this.nieuweMatchToolStripMenuItem.Text = "Nieuwe match";
             this.nieuweMatchToolStripMenuItem.Click += new System.EventHandler(this.nieuweMatchToolStripMenuItem_Click);
             // 
@@ -91,16 +91,23 @@
             // spelregelsToolStripMenuItem
             // 
             this.spelregelsToolStripMenuItem.Name = "spelregelsToolStripMenuItem";
-            this.spelregelsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.spelregelsToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
             this.spelregelsToolStripMenuItem.Text = "Spelregels";
             this.spelregelsToolStripMenuItem.Click += new System.EventHandler(this.spelregelsToolStripMenuItem_Click);
             // 
             // colofonToolStripMenuItem
             // 
             this.colofonToolStripMenuItem.Name = "colofonToolStripMenuItem";
-            this.colofonToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.colofonToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
             this.colofonToolStripMenuItem.Text = "Colofon";
             this.colofonToolStripMenuItem.Click += new System.EventHandler(this.highscoresToolStripMenuItem_Click);
+            // 
+            // highscoresToolStripMenuItem
+            // 
+            this.highscoresToolStripMenuItem.Name = "highscoresToolStripMenuItem";
+            this.highscoresToolStripMenuItem.Size = new System.Drawing.Size(78, 20);
+            this.highscoresToolStripMenuItem.Text = "Highscores";
+            this.highscoresToolStripMenuItem.Click += new System.EventHandler(this.highscoresToolStripMenuItem_Click);
             // 
             // panel1
             // 
@@ -128,13 +135,6 @@
             this.label1.TabIndex = 3;
             this.label1.Text = "label1";
             // 
-            // highscoresToolStripMenuItem
-            // 
-            this.highscoresToolStripMenuItem.Name = "highscoresToolStripMenuItem";
-            this.highscoresToolStripMenuItem.Size = new System.Drawing.Size(78, 20);
-            this.highscoresToolStripMenuItem.Text = "Highscores";
-            this.highscoresToolStripMenuItem.Click += new System.EventHandler(this.highscoresToolStripMenuItem_Click);
-            // 
             // Client
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -146,7 +146,7 @@
             this.Controls.Add(this.panel1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Client";
-            this.Text = "Form1";
+            this.Text = "Mijnenveger";
             this.Load += new System.EventHandler(this.Client_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
